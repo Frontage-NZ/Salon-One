@@ -988,9 +988,23 @@
         aspect-ratio: unset;
       }
       .gallery-image,
-      .gallery-img-grayscale {
+      .gallery-img-grayscale,
+      .splash-color-canvas {
+        width: 100%;
         height: 100%;
+        object-fit: cover;
         aspect-ratio: unset;
+        transform: none !important;
+      }
+      .gallery-stack-card.card-1 .gallery-image {
+        object-position: 50% 20%;
+      }
+      .gallery-stack-card.card-2 .gallery-image,
+      .gallery-stack-card.card-2 .gallery-img-grayscale {
+        object-position: 50% 28%;
+      }
+      .gallery-stack-card.card-3 .gallery-image {
+        object-position: 50% 35%;
       }
       .gallery-card-overlay {
         padding: 1.5rem 1.75rem clamp(3.5rem, 9vh, 5.5rem) 1.75rem;
@@ -1192,11 +1206,12 @@
       line-height: 1.05;
       font-weight: 800;
       letter-spacing: -0.025em;
-      color: #000000;
-      -webkit-text-fill-color: #000000;
+      color: #FFFFFF;
+      -webkit-text-fill-color: #FFFFFF;
       text-shadow:
-        0 0 6px rgba(255, 255, 255, 0.45),
-        0 0 14px rgba(255, 255, 255, 0.2);
+        0 0 8px rgba(255, 255, 255, 0.7),
+        0 0 20px rgba(255, 255, 255, 0.4),
+        0 0 35px rgba(255, 255, 255, 0.2);
       margin: 0;
     }
 
@@ -1224,225 +1239,179 @@
       text-shadow: none;
     }
 
-    /* Mobile Discipline Navigation Bar */
-    .editorial-mobile-nav {
-      display: none;
-      gap: 0.5rem;
-      overflow-x: auto;
-      padding-top: 1rem;
-      padding-bottom: 1rem;
-      margin-bottom: 1.5rem;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
+    /* Services Dropdown Menu (PC & Mobile clickable selection only, non-sticky) */
+    .editorial-services-dropdown-wrap {
+      position: relative;
+      width: 100%;
+      max-width: 360px;
+      z-index: 30;
     }
 
-    .editorial-mobile-nav::-webkit-scrollbar {
-      display: none;
-    }
-
-    .editorial-mobile-nav-btn {
-      flex-shrink: 0;
-      display: inline-flex;
+    .editorial-services-dropdown-btn {
+      width: 100%;
+      min-height: 54px;
+      display: flex;
       align-items: center;
-      gap: 0.5rem;
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      padding: 0.55rem 1rem;
-      background: transparent;
+      justify-content: space-between;
+      padding: 0.9rem 1.35rem;
+      background: rgba(18, 17, 21, 0.94);
       border: 1px solid rgba(255, 255, 255, 0.3);
       border-radius: 0;
       color: #FFFFFF;
-      white-space: nowrap;
       cursor: pointer;
-      transition: all 0.3s ease;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+      transition: border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+      text-align: left;
     }
 
-    .editorial-mobile-nav-btn.active {
-      background: #FFFFFF;
-      border-color: #FFFFFF;
-      color: #000000;
-      font-weight: 700;
-      box-shadow: 0 0 12px rgba(255, 255, 255, 0.25);
+    .editorial-services-dropdown-btn:hover,
+    .editorial-services-dropdown-btn:focus-visible {
+      border-color: rgba(255, 255, 255, 0.65);
+      background: rgba(26, 25, 30, 0.98);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.6);
     }
 
-    /* Asymmetrical Editorial Grid (34% Left Directory, 66% Right Spread) */
-    .editorial-services-grid {
-      display: grid;
-      grid-template-columns: 34% 66%;
-      gap: 3.5rem;
-      align-items: start;
-      padding-top: 2rem;
-      position: relative;
+    .editorial-services-dropdown-wrap.open .editorial-services-dropdown-btn {
+      border-color: var(--accent-gold);
     }
 
-    /* Left Nav: Stationary Architectural Directory */
-    .editorial-directory {
-      position: sticky;
-      top: 5.5rem;
-      align-self: start;
+    .editorial-dropdown-btn-content {
       display: flex;
-      flex-direction: column;
-      z-index: 10;
+      align-items: center;
+      gap: 1rem;
     }
 
-    .editorial-directory-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      padding-bottom: 0.85rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-      margin-bottom: 0.25rem;
+    .editorial-dropdown-num {
       font-family: var(--font-mono);
-      font-size: 0.68rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: #FFFFFF;
-      opacity: 0.85;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: var(--accent-gold);
     }
 
-    .editorial-nav-item {
+    .editorial-dropdown-label {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: #FFFFFF;
+    }
+
+    .editorial-dropdown-chevron {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #FFFFFF;
+      transition: transform 0.35s var(--ease-editorial);
+    }
+
+    .editorial-services-dropdown-wrap.open .editorial-dropdown-chevron {
+      transform: rotate(180deg);
+      color: var(--accent-gold);
+    }
+
+    .editorial-services-dropdown-menu {
+      display: none;
+      position: absolute;
+      top: calc(100% + 6px);
+      left: 0;
+      width: 100%;
+      background: rgba(14, 13, 16, 0.98);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      max-height: 390px;
+      overflow-y: auto;
+      z-index: 50;
+      flex-direction: column;
+    }
+
+    .editorial-services-dropdown-wrap.open .editorial-services-dropdown-menu {
+      display: flex;
+    }
+
+    .editorial-dropdown-item {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 1.15rem 0.5rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      width: 100%;
+      min-height: 48px;
+      padding: 0.9rem 1.35rem;
       background: transparent;
-      border-top: none;
-      border-left: none;
-      border-right: none;
+      border: none;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      color: #FFFFFF;
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
       cursor: pointer;
       text-align: left;
-      width: 100%;
-      color: #FFFFFF;
-      transition: all 0.35s var(--ease-editorial);
-      position: relative;
+      transition: background-color 0.2s ease, color 0.2s ease;
     }
 
-    .editorial-nav-item-left {
+    .editorial-dropdown-item:last-child {
+      border-bottom: none;
+    }
+
+    .editorial-dropdown-item:hover,
+    .editorial-dropdown-item:focus-visible {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .editorial-dropdown-item.active {
+      background: rgba(229, 193, 88, 0.12);
+      color: var(--accent-gold);
+      font-weight: 600;
+    }
+
+    .editorial-dropdown-item-left {
       display: flex;
-      align-items: baseline;
-      gap: 1.25rem;
+      align-items: center;
+      gap: 0.85rem;
     }
 
-    .editorial-nav-num {
+    .editorial-dropdown-item-num {
       font-family: var(--font-mono);
       font-size: 0.78rem;
       letter-spacing: 0.12em;
-      color: #FFFFFF;
-      opacity: 0.8;
-      transition: all 0.3s ease;
-    }
-
-    .editorial-nav-text {
-      display: flex;
-      flex-direction: column;
-      gap: 0.2rem;
-    }
-
-    .editorial-nav-name {
-      font-family: var(--font-display);
-      font-size: 1.3rem;
-      font-weight: 700;
-      letter-spacing: -0.01em;
-      color: #000000;
-      -webkit-text-fill-color: #000000;
-      text-shadow:
-        0 0 5px rgba(255, 255, 255, 0.4),
-        0 0 12px rgba(255, 255, 255, 0.15);
-      transition: color 0.3s ease, transform 0.3s ease, text-shadow 0.3s ease;
-    }
-
-    .editorial-nav-sub {
-      font-family: var(--font-mono);
-      font-size: 0.62rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: #FFFFFF;
       opacity: 0.75;
-      transition: color 0.3s ease;
+      color: inherit;
     }
 
-    .editorial-nav-indicator {
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
+    .editorial-dropdown-item-text {
+      font-size: 1rem;
+      color: inherit;
+    }
+
+    .editorial-dropdown-check {
       opacity: 0;
-      transform: translateX(-6px);
-      transition: all 0.35s var(--ease-editorial);
+      color: var(--accent-gold);
+      transition: opacity 0.2s ease;
     }
 
-    .editorial-nav-indicator-line {
-      width: 16px;
-      height: 1.5px;
-      background-color: #FFFFFF;
-      box-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
-    }
-
-    .editorial-nav-indicator svg {
-      width: 12px;
-      height: 12px;
-      color: #FFFFFF;
-    }
-
-    .editorial-nav-item:hover {
-      padding-left: 0.85rem;
-    }
-
-    .editorial-nav-item:hover .editorial-nav-num {
-      color: #000000;
-      text-shadow: 0 0 6px rgba(255, 255, 255, 0.5);
-    }
-
-    .editorial-nav-item:hover .editorial-nav-name {
-      color: #000000;
-      -webkit-text-fill-color: #000000;
-      text-shadow:
-        0 0 7px rgba(255, 255, 255, 0.55),
-        0 0 15px rgba(255, 255, 255, 0.25);
-    }
-
-    .editorial-nav-item.active {
-      padding-left: 1rem;
-      border-bottom-color: rgba(255, 255, 255, 0.4);
-    }
-
-    .editorial-nav-item.active .editorial-nav-num {
-      color: #000000;
-      font-weight: 800;
-      text-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
-    }
-
-    .editorial-nav-item.active .editorial-nav-name {
-      color: #000000;
-      -webkit-text-fill-color: #000000;
-      font-size: 1.38rem;
-      font-weight: 800;
-      text-shadow:
-        0 0 8px rgba(255, 255, 255, 0.6),
-        0 0 18px rgba(255, 255, 255, 0.25);
-    }
-
-    .editorial-nav-item.active .editorial-nav-sub {
-      color: #FFFFFF;
-    }
-
-    .editorial-nav-item.active .editorial-nav-indicator {
+    .editorial-dropdown-item.active .editorial-dropdown-check {
       opacity: 1;
-      transform: translateX(0);
     }
 
-    /* Right Showcase: Editorial Magazine Spread with Clean Boundary Disappearance */
+    /* Single-Column Editorial Services Layout */
+    .editorial-services-grid {
+      display: block;
+      width: 100%;
+      padding-top: 2.5rem;
+      position: relative;
+    }
+
+    /* Editorial Magazine Spread */
     .editorial-display {
       display: flex;
       flex-direction: column;
-      max-height: 600px;
-      overflow-y: auto;
-      overflow-x: hidden;
-      overscroll-behavior: auto;
-      padding-right: 1.25rem;
-      padding-bottom: 2rem;
+      width: 100%;
+      max-height: none;
+      overflow: visible;
+      padding-right: 0;
+      padding-bottom: 1rem;
       scrollbar-width: thin;
       scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
       contain: paint;
@@ -1495,11 +1464,12 @@
       line-height: 1.05;
       font-weight: 800;
       letter-spacing: -0.02em;
-      color: #000000;
-      -webkit-text-fill-color: #000000;
+      color: #FFFFFF;
+      -webkit-text-fill-color: #FFFFFF;
       text-shadow:
-        0 0 6px rgba(255, 255, 255, 0.45),
-        0 0 14px rgba(255, 255, 255, 0.2);
+        0 0 8px rgba(255, 255, 255, 0.7),
+        0 0 20px rgba(255, 255, 255, 0.4),
+        0 0 35px rgba(255, 255, 255, 0.2);
       margin-bottom: 1.25rem;
     }
 
@@ -1540,20 +1510,21 @@
       font-family: var(--font-display);
       font-size: 1.4rem;
       font-weight: 800;
-      color: #000000;
-      -webkit-text-fill-color: #000000;
+      color: #FFFFFF;
+      -webkit-text-fill-color: #FFFFFF;
       letter-spacing: -0.01em;
       text-shadow:
-        0 0 5px rgba(255, 255, 255, 0.4),
-        0 0 12px rgba(255, 255, 255, 0.15);
+        0 0 6px rgba(255, 255, 255, 0.65),
+        0 0 14px rgba(255, 255, 255, 0.35);
     }
 
     .editorial-metric-data.gold {
-      color: #000000;
-      -webkit-text-fill-color: #000000;
+      color: #E5C158;
+      -webkit-text-fill-color: #E5C158;
       text-shadow:
-        0 0 5px rgba(255, 255, 255, 0.45),
-        0 0 14px rgba(255, 255, 255, 0.18);
+        0 0 6px rgba(255, 255, 255, 0.75),
+        0 0 16px rgba(255, 255, 255, 0.45),
+        0 0 24px rgba(255, 255, 255, 0.25);
     }
 
     /* Architectural Image Frame with Fine Crosshairs */
@@ -1656,19 +1627,19 @@
       font-family: var(--font-display);
       font-size: 1.25rem;
       font-weight: 700;
-      color: #000000;
-      -webkit-text-fill-color: #000000;
+      color: #FFFFFF;
+      -webkit-text-fill-color: #FFFFFF;
       letter-spacing: -0.01em;
       text-shadow:
-        0 0 5px rgba(255, 255, 255, 0.4),
-        0 0 10px rgba(255, 255, 255, 0.15);
-      transition: text-shadow 0.3s ease;
+        0 0 6px rgba(255, 255, 255, 0.65),
+        0 0 14px rgba(255, 255, 255, 0.35);
+      transition: text-shadow 0.3s ease, color 0.3s ease;
     }
 
     .editorial-treatment-line:hover .editorial-treatment-name {
       text-shadow:
-        0 0 7px rgba(255, 255, 255, 0.6),
-        0 0 15px rgba(255, 255, 255, 0.25);
+        0 0 8px rgba(255, 255, 255, 0.9),
+        0 0 20px rgba(255, 255, 255, 0.55);
     }
 
     .editorial-treatment-meta {
@@ -1690,13 +1661,14 @@
     .editorial-treatment-cost {
       font-family: var(--font-display);
       font-size: 1.3rem;
-      color: #000000;
-      -webkit-text-fill-color: #000000;
+      color: #E5C158;
+      -webkit-text-fill-color: #E5C158;
       font-weight: 800;
       letter-spacing: -0.01em;
       text-shadow:
-        0 0 5px rgba(255, 255, 255, 0.4),
-        0 0 12px rgba(255, 255, 255, 0.15);
+        0 0 6px rgba(255, 255, 255, 0.75),
+        0 0 16px rgba(255, 255, 255, 0.45),
+        0 0 24px rgba(255, 255, 255, 0.25);
     }
 
     .editorial-book-link {
@@ -1715,10 +1687,10 @@
     }
 
     .editorial-book-link:hover {
-      color: #000000;
-      -webkit-text-fill-color: #000000;
-      text-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
-      border-bottom-color: #FFFFFF;
+      color: var(--accent-gold);
+      -webkit-text-fill-color: var(--accent-gold);
+      text-shadow: 0 0 6px rgba(255, 255, 255, 0.7);
+      border-bottom-color: var(--accent-gold);
       gap: 0.75rem;
     }
 
@@ -1818,30 +1790,14 @@
     }
 
     @media (max-width: 1024px) {
-      .editorial-services-grid {
-        grid-template-columns: 1fr;
-        gap: 2rem;
+      .services-editorial-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.25rem;
       }
 
-      .editorial-directory {
-        display: none;
-      }
-
-      .editorial-mobile-nav {
-        display: flex;
-        position: sticky;
-        top: 9.5rem;
-        z-index: 20;
-      }
-
-      .services-editorial-header-right {
-        text-align: left;
-      }
-
-      .editorial-display {
-        max-height: none;
-        overflow-y: visible;
-        padding-right: 0;
+      .editorial-services-dropdown-wrap {
+        max-width: 100%;
       }
     }
 
@@ -2682,144 +2638,89 @@
     <section class="services-section" id="services">
       <div class="container">
 
-        <!-- Section Header: Editorial & Technical Typography -->
+        <!-- Section Header: Title & Dropdown Clickable Selection -->
         <div class="services-editorial-header">
           <div class="services-editorial-header-left">
             <h2 class="services-editorial-title">OUR SERVICES</h2>
           </div>
+
+          <!-- Services Dropdown Selector (Clickable Selection for PC and Mobile) -->
+          <div class="editorial-services-dropdown-wrap" id="servicesDropdownWrap">
+            <button type="button" class="editorial-services-dropdown-btn" id="servicesDropdownBtn" aria-haspopup="listbox" aria-expanded="false" aria-label="Select salon service">
+              <div class="editorial-dropdown-btn-content">
+                <span class="editorial-dropdown-num" id="selectedServiceNum">01</span>
+                <span class="editorial-dropdown-label" id="selectedServiceTitle">Hair Styling</span>
+              </div>
+              <div class="editorial-dropdown-chevron">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+              </div>
+            </button>
+            
+            <div class="editorial-services-dropdown-menu" id="servicesDropdownMenu" role="listbox" aria-label="Salon services menu">
+              <button type="button" class="editorial-dropdown-item active" data-service-idx="0" role="option" aria-selected="true">
+                <div class="editorial-dropdown-item-left">
+                  <span class="editorial-dropdown-item-num">01</span>
+                  <span class="editorial-dropdown-item-text">Hair Styling</span>
+                </div>
+                <svg class="editorial-dropdown-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              </button>
+              <button type="button" class="editorial-dropdown-item" data-service-idx="1" role="option" aria-selected="false">
+                <div class="editorial-dropdown-item-left">
+                  <span class="editorial-dropdown-item-num">02</span>
+                  <span class="editorial-dropdown-item-text">Hair Colour</span>
+                </div>
+                <svg class="editorial-dropdown-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              </button>
+              <button type="button" class="editorial-dropdown-item" data-service-idx="2" role="option" aria-selected="false">
+                <div class="editorial-dropdown-item-left">
+                  <span class="editorial-dropdown-item-num">03</span>
+                  <span class="editorial-dropdown-item-text">Cut &amp; Finish</span>
+                </div>
+                <svg class="editorial-dropdown-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              </button>
+              <button type="button" class="editorial-dropdown-item" data-service-idx="3" role="option" aria-selected="false">
+                <div class="editorial-dropdown-item-left">
+                  <span class="editorial-dropdown-item-num">04</span>
+                  <span class="editorial-dropdown-item-text">Facials &amp; Glow</span>
+                </div>
+                <svg class="editorial-dropdown-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              </button>
+              <button type="button" class="editorial-dropdown-item" data-service-idx="4" role="option" aria-selected="false">
+                <div class="editorial-dropdown-item-left">
+                  <span class="editorial-dropdown-item-num">05</span>
+                  <span class="editorial-dropdown-item-text">Nails &amp; Pedicures</span>
+                </div>
+                <svg class="editorial-dropdown-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              </button>
+              <button type="button" class="editorial-dropdown-item" data-service-idx="5" role="option" aria-selected="false">
+                <div class="editorial-dropdown-item-left">
+                  <span class="editorial-dropdown-item-num">06</span>
+                  <span class="editorial-dropdown-item-text">Brows &amp; Lashes</span>
+                </div>
+                <svg class="editorial-dropdown-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              </button>
+              <button type="button" class="editorial-dropdown-item" data-service-idx="6" role="option" aria-selected="false">
+                <div class="editorial-dropdown-item-left">
+                  <span class="editorial-dropdown-item-num">07</span>
+                  <span class="editorial-dropdown-item-text">Makeup Artistry</span>
+                </div>
+                <svg class="editorial-dropdown-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              </button>
+              <button type="button" class="editorial-dropdown-item" data-service-idx="7" role="option" aria-selected="false">
+                <div class="editorial-dropdown-item-left">
+                  <span class="editorial-dropdown-item-num">08</span>
+                  <span class="editorial-dropdown-item-text">Bridal Atelier</span>
+                </div>
+                <svg class="editorial-dropdown-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              </button>
+            </div>
+          </div>
         </div>
 
-        <!-- Mobile Horizontal Discipline Navigation -->
-        <div class="editorial-mobile-nav" id="hudMobilePills" aria-label="Select Service Discipline">
-          <button type="button" class="editorial-mobile-nav-btn active" data-service-idx="0">01 STYLING</button>
-          <button type="button" class="editorial-mobile-nav-btn" data-service-idx="1">02 COLOUR</button>
-          <button type="button" class="editorial-mobile-nav-btn" data-service-idx="2">03 CUT &amp; FINISH</button>
-          <button type="button" class="editorial-mobile-nav-btn" data-service-idx="3">04 FACIALS</button>
-          <button type="button" class="editorial-mobile-nav-btn" data-service-idx="4">05 NAILS</button>
-          <button type="button" class="editorial-mobile-nav-btn" data-service-idx="5">06 BROWS &amp; LASHES</button>
-          <button type="button" class="editorial-mobile-nav-btn" data-service-idx="6">07 MAKEUP</button>
-          <button type="button" class="editorial-mobile-nav-btn" data-service-idx="7">08 BRIDAL</button>
-        </div>
-
-        <!-- Asymmetrical Editorial Layout (34% Directory / 66% Spread) -->
+        <!-- Single-Column Editorial Spread Showcase -->
         <div class="editorial-services-grid reveal-on-scroll">
 
-          <!-- Left: Architectural Directory Menu -->
-          <div class="editorial-directory" id="hudMenuCol" role="tablist" aria-label="Salon Service Directory">
-            <!-- 01 HAIR STYLING -->
-            <button type="button" class="editorial-nav-item active" data-service-idx="0" role="tab" aria-selected="true">
-              <div class="editorial-nav-item-left">
-                <span class="editorial-nav-num">01</span>
-                <div class="editorial-nav-text">
-                  <span class="editorial-nav-name">Hair Styling</span>
-                </div>
-              </div>
-              <div class="editorial-nav-indicator">
-                <span class="editorial-nav-indicator-line"></span>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-              </div>
-            </button>
-
-            <!-- 02 HAIR COLOUR -->
-            <button type="button" class="editorial-nav-item" data-service-idx="1" role="tab" aria-selected="false">
-              <div class="editorial-nav-item-left">
-                <span class="editorial-nav-num">02</span>
-                <div class="editorial-nav-text">
-                  <span class="editorial-nav-name">Hair Colour</span>
-                </div>
-              </div>
-              <div class="editorial-nav-indicator">
-                <span class="editorial-nav-indicator-line"></span>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-              </div>
-            </button>
-
-            <!-- 03 CUT & FINISH -->
-            <button type="button" class="editorial-nav-item" data-service-idx="2" role="tab" aria-selected="false">
-              <div class="editorial-nav-item-left">
-                <span class="editorial-nav-num">03</span>
-                <div class="editorial-nav-text">
-                  <span class="editorial-nav-name">Cut &amp; Finish</span>
-                </div>
-              </div>
-              <div class="editorial-nav-indicator">
-                <span class="editorial-nav-indicator-line"></span>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-              </div>
-            </button>
-
-            <!-- 04 FACIALS -->
-            <button type="button" class="editorial-nav-item" data-service-idx="3" role="tab" aria-selected="false">
-              <div class="editorial-nav-item-left">
-                <span class="editorial-nav-num">04</span>
-                <div class="editorial-nav-text">
-                  <span class="editorial-nav-name">Facials &amp; Glow</span>
-                </div>
-              </div>
-              <div class="editorial-nav-indicator">
-                <span class="editorial-nav-indicator-line"></span>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-              </div>
-            </button>
-
-            <!-- 05 NAILS -->
-            <button type="button" class="editorial-nav-item" data-service-idx="4" role="tab" aria-selected="false">
-              <div class="editorial-nav-item-left">
-                <span class="editorial-nav-num">05</span>
-                <div class="editorial-nav-text">
-                  <span class="editorial-nav-name">Nails &amp; Pedicures</span>
-                </div>
-              </div>
-              <div class="editorial-nav-indicator">
-                <span class="editorial-nav-indicator-line"></span>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-              </div>
-            </button>
-
-            <!-- 06 BROWS & LASHES -->
-            <button type="button" class="editorial-nav-item" data-service-idx="5" role="tab" aria-selected="false">
-              <div class="editorial-nav-item-left">
-                <span class="editorial-nav-num">06</span>
-                <div class="editorial-nav-text">
-                  <span class="editorial-nav-name">Brows &amp; Lashes</span>
-                </div>
-              </div>
-              <div class="editorial-nav-indicator">
-                <span class="editorial-nav-indicator-line"></span>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-              </div>
-            </button>
-
-            <!-- 07 MAKEUP -->
-            <button type="button" class="editorial-nav-item" data-service-idx="6" role="tab" aria-selected="false">
-              <div class="editorial-nav-item-left">
-                <span class="editorial-nav-num">07</span>
-                <div class="editorial-nav-text">
-                  <span class="editorial-nav-name">Makeup Artistry</span>
-                </div>
-              </div>
-              <div class="editorial-nav-indicator">
-                <span class="editorial-nav-indicator-line"></span>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-              </div>
-            </button>
-
-            <!-- 08 BRIDAL -->
-            <button type="button" class="editorial-nav-item" data-service-idx="7" role="tab" aria-selected="false">
-              <div class="editorial-nav-item-left">
-                <span class="editorial-nav-num">08</span>
-                <div class="editorial-nav-text">
-                  <span class="editorial-nav-name">Bridal Atelier</span>
-                </div>
-              </div>
-              <div class="editorial-nav-indicator">
-                <span class="editorial-nav-indicator-line"></span>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-              </div>
-            </button>
-          </div>
-
-          <!-- Right: Editorial Magazine Spread -->
+          <!-- Editorial Magazine Spread -->
           <div class="editorial-display" id="hudMainPanel">
 
             <!-- Hero Layout: Headline & Asymmetrical Image Composition -->
@@ -3768,10 +3669,11 @@
           var imgRatio = imgW / imgH;
           var canvasRatio = w / h;
           var sx = 0, sy = 0, sWidth = imgW, sHeight = imgH;
+          var posY = (window.innerWidth <= 768) ? 0.28 : 0.5;
 
           if (canvasRatio > imgRatio) {
             sHeight = (imgW * h) / w;
-            sy = (imgH - sHeight) / 2;
+            sy = (imgH - sHeight) * posY;
           } else {
             sWidth = (imgH * w) / h;
             sx = (imgW - sWidth) / 2;
@@ -4207,8 +4109,13 @@
         ];
 
         var activeIndex = 0;
-        var menuItems = document.querySelectorAll('.editorial-nav-item');
-        var mobilePills = document.querySelectorAll('.editorial-mobile-nav-btn');
+        
+        // Services dropdown elements (PC & Mobile clickable selection only)
+        var dropdownWrap = document.getElementById('servicesDropdownWrap');
+        var dropdownBtn = document.getElementById('servicesDropdownBtn');
+        var dropdownItems = document.querySelectorAll('.editorial-dropdown-item');
+        var elSelectedNum = document.getElementById('selectedServiceNum');
+        var elSelectedTitle = document.getElementById('selectedServiceTitle');
 
         var elTitle = document.getElementById('hudActiveTitle');
         var elDesc = document.getElementById('hudActiveDesc');
@@ -4243,23 +4150,16 @@
           activeIndex = idx;
           var data = servicesData[idx];
 
-          // Reset right pane scroll to top so each discipline opens at top
-          var mainPanel = document.getElementById('hudMainPanel');
-          if (mainPanel) {
-            mainPanel.scrollTop = 0;
+          // Update dropdown selected values & active state
+          if (elSelectedNum) elSelectedNum.textContent = data.id;
+          if (elSelectedTitle) elSelectedTitle.textContent = data.title;
+          if (dropdownItems) {
+            dropdownItems.forEach(function (item, i) {
+              var isActive = (i === idx);
+              item.classList.toggle('active', isActive);
+              item.setAttribute('aria-selected', String(isActive));
+            });
           }
-
-          // Update active states in directory menu
-          menuItems.forEach(function (item, i) {
-            var isActive = (i === idx);
-            item.classList.toggle('active', isActive);
-            item.setAttribute('aria-selected', String(isActive));
-          });
-
-          // Update mobile pill buttons
-          mobilePills.forEach(function (pill, i) {
-            pill.classList.toggle('active', i === idx);
-          });
 
           // Update headings & descriptions
           if (elTitle) elTitle.textContent = data.title;
@@ -4302,22 +4202,40 @@
           }
         }
 
-        // Attach listeners for left menu items
-        menuItems.forEach(function (btn, idx) {
-          btn.addEventListener('click', function () {
-            renderService(idx);
+        // Services dropdown click and selection listeners
+        if (dropdownBtn && dropdownWrap) {
+          dropdownBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            var isOpen = dropdownWrap.classList.toggle('open');
+            dropdownBtn.setAttribute('aria-expanded', String(isOpen));
           });
-          btn.addEventListener('mouseenter', function () {
-            renderService(idx);
-          });
-        });
 
-        // Mobile pills
-        mobilePills.forEach(function (pill, idx) {
-          pill.addEventListener('click', function () {
-            renderService(idx);
+          if (dropdownItems) {
+            dropdownItems.forEach(function (item, idx) {
+              item.addEventListener('click', function (e) {
+                e.stopPropagation();
+                renderService(idx);
+                dropdownWrap.classList.remove('open');
+                dropdownBtn.setAttribute('aria-expanded', 'false');
+              });
+            });
+          }
+
+          document.addEventListener('click', function (e) {
+            if (!dropdownWrap.contains(e.target)) {
+              dropdownWrap.classList.remove('open');
+              dropdownBtn.setAttribute('aria-expanded', 'false');
+            }
           });
-        });
+
+          document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && dropdownWrap.classList.contains('open')) {
+              dropdownWrap.classList.remove('open');
+              dropdownBtn.setAttribute('aria-expanded', 'false');
+              dropdownBtn.focus();
+            }
+          });
+        }
 
         // Initial render
         renderService(0);
