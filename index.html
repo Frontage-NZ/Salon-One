@@ -1708,7 +1708,7 @@
     /* Bottom Editorial Footer / Actions */
     .editorial-footer-bar {
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-end;
       align-items: center;
       margin-top: 3.5rem;
       padding-top: 2rem;
@@ -1909,9 +1909,9 @@
        ========================================================================== */
     .stylists-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 3rem;
-      margin-top: 4rem;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2.5rem 2rem;
+      margin-top: 3.5rem;
     }
 
     .stylist-card {
@@ -1923,8 +1923,8 @@
 
     .stylist-image-container {
       position: relative;
-      width: 220px;
-      height: 220px;
+      width: 200px;
+      height: 200px;
       margin-bottom: 1.75rem;
     }
 
@@ -1933,16 +1933,17 @@
       height: 100%;
       border-radius: 50%;
       object-fit: cover;
-      border: 1px solid var(--border-glass);
-      transition: transform 0.6s var(--ease-editorial);
+      border: 2px solid var(--accent-gold);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+      transition: transform 0.6s var(--ease-editorial), border-color 0.4s ease;
     }
 
     .stylist-ring {
       position: absolute;
       inset: -8px;
-      border: 1px dashed var(--accent-gold);
+      border: 1px dashed rgba(212, 175, 55, 0.55);
       border-radius: 50%;
-      transition: transform 0.8s var(--ease-editorial);
+      transition: transform 0.8s var(--ease-editorial), border-color 0.4s ease;
       pointer-events: none;
     }
 
@@ -2039,13 +2040,13 @@
     }
 
     .booking-box {
-      background: var(--bg-surface-elevated);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      border: 1px solid var(--border-glass);
-      border-radius: var(--radius-lg);
-      box-shadow: var(--shadow-lg);
-      padding: clamp(2rem, 5vw, 4rem);
+      background: transparent;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      border: none;
+      border-radius: 0;
+      box-shadow: none;
+      padding: 0;
       max-width: 960px;
       margin-inline: auto;
     }
@@ -2096,10 +2097,11 @@
 
     /* Stylized Mini Calendar Preview */
     .calendar-card {
-      background: var(--bg-glass);
-      border-radius: var(--radius-md);
-      padding: 1.75rem;
-      border: 1px solid var(--border-glass);
+      background: transparent;
+      border-radius: 0;
+      padding: 0;
+      border: none;
+      box-shadow: none;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -2168,12 +2170,13 @@
     }
 
     .booking-summary {
-      background: rgba(255, 255, 255, 0.04);
-      padding: 1.25rem;
-      border-radius: var(--radius-sm);
+      background: transparent;
+      padding: 1.25rem 0 0 0;
+      border-radius: 0;
       margin-top: 1.25rem;
       font-size: 0.85rem;
-      border: 1px solid var(--border-glass-subtle);
+      border: none;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
       color: var(--text-sand);
     }
 
@@ -2786,12 +2789,8 @@
               </div>
             </div>
 
-            <!-- Bottom Editorial Actions & Concierge Note -->
+            <!-- Bottom Editorial Actions -->
             <div class="editorial-footer-bar">
-              <div class="editorial-concierge-note">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
-                <span>Bespoke consultation and luxury refreshment ritual included with every service</span>
-              </div>
               <div class="editorial-actions-group">
                 <a href="#booking" class="btn-editorial-primary" id="hudMainBookBtn">
                   RESERVE APPOINTMENT
@@ -2831,10 +2830,9 @@
           </div>
 
           <div class="about-content reveal-on-scroll delay-200">
-            <div class="eyebrow">About Salon One</div>
             <h2 class="headline-lg">A Trusted Name in Tauranga Hair & Beauty.</h2>
             <p class="lead-text" style="margin-top: 1.5rem;">
-              Salon One is owned by Angela King, who leads a dynamic and highly trained team delivering personalised hairdressing and beauty care from our Fraser Cove salon.
+              Salon One is home to a dynamic and highly trained team delivering personalised hairdressing and beauty care from our Fraser Cove salon.
             </p>
             <p class="lead-text" style="margin-top: 1rem;">
               We're proudly family-owned, and committed to using eco-friendly products and sustainable packaging throughout the salon.
@@ -2873,23 +2871,70 @@
       <div class="container">
 
         <div class="services-header reveal-on-scroll">
-          <div class="eyebrow">Meet the Owner</div>
-          <h2 class="headline-lg">Led By Angela King</h2>
+          <h2 class="headline-lg">Meet the Team</h2>
           <p class="lead-text" style="margin-top: 1rem;">
-            Angela leads Salon One's dynamic and highly trained team, bringing hairdressing and beauty specialists together under one roof at Fraser Cove.
+            Our dynamic and highly trained team brings hairdressing and beauty specialists together under one roof at Fraser Cove.
           </p>
         </div>
 
-        <div class="stylists-grid" style="max-width: 320px; margin-inline: auto;">
+        <div class="stylists-grid" style="max-width: 1240px; margin-inline: auto;">
           <div class="stylist-card reveal-on-scroll delay-100">
             <div class="stylist-image-container">
               <div class="stylist-ring"></div>
-              <div class="stylist-monogram" aria-hidden="true">AK</div>
+              <img src="https://res.cloudinary.com/cskamhz5/image/upload/v1788223744/vecteezy_confident-professional-woman-close-up-headshot-embodying_70270536.jpg" alt="Victoria Sterling - Founder & Salon Owner" class="stylist-avatar" loading="lazy" />
             </div>
-            <h3 class="stylist-name">Angela King</h3>
-            <span class="stylist-role">Founder & Owner</span>
+            <h3 class="stylist-name">Victoria Sterling</h3>
+            <span class="stylist-role">Founder & Salon Owner</span>
             <p class="stylist-bio">
-              Leads Salon One's hairdressing and beauty team, with a focus on personalised care and eco-conscious practice.
+              Visionary behind Salon One, leading our commitment to sustainable luxury, bespoke client transformations, and master craftsmanship.
+            </p>
+          </div>
+
+          <div class="stylist-card reveal-on-scroll delay-150">
+            <div class="stylist-image-container">
+              <div class="stylist-ring"></div>
+              <img src="https://res.cloudinary.com/cskamhz5/image/upload/v1788223745/vecteezy_beautiful-woman-in-blue-suit-with-blue-eyes_69187160.jpg" alt="Elena Mercer - General Manager & Master Stylist" class="stylist-avatar" loading="lazy" />
+            </div>
+            <h3 class="stylist-name">Elena Mercer</h3>
+            <span class="stylist-role">General Manager & Master All-Rounder</span>
+            <p class="stylist-bio">
+              Oversees salon excellence with all-trades mastery across precision cutting, advanced colour correction, retexturising, and beauty rituals.
+            </p>
+          </div>
+
+          <div class="stylist-card reveal-on-scroll delay-200">
+            <div class="stylist-image-container">
+              <div class="stylist-ring"></div>
+              <img src="https://res.cloudinary.com/cskamhz5/image/upload/v1788223745/vecteezy_selfie-portrait-woman-in-a-vibrant-red-sweater-poses_51492081.jpg" alt="Sophie Laurent - Master Colourist" class="stylist-avatar" loading="lazy" />
+            </div>
+            <h3 class="stylist-name">Sophie Laurent</h3>
+            <span class="stylist-role">Master Colourist & Balayage</span>
+            <p class="stylist-bio">
+              Specialises in seamless lived-in blondes, dimensional balayage, and bespoke tonal transformations tailored to each client.
+            </p>
+          </div>
+
+          <div class="stylist-card reveal-on-scroll delay-250">
+            <div class="stylist-image-container">
+              <div class="stylist-ring"></div>
+              <img src="https://res.cloudinary.com/cskamhz5/image/upload/v1788223745/vecteezy_young-woman-wearing-an-orange-sweater-with-curly-hair_81488688.jpg" alt="Amara Vance - Texture Specialist" class="stylist-avatar" loading="lazy" />
+            </div>
+            <h3 class="stylist-name">Amara Vance</h3>
+            <span class="stylist-role">Senior Stylist & Texture</span>
+            <p class="stylist-bio">
+              Renowned for bespoke curl cutting, restorative hydration rituals, and effortless silhouette tailoring with natural movement.
+            </p>
+          </div>
+
+          <div class="stylist-card reveal-on-scroll delay-300">
+            <div class="stylist-image-container">
+              <div class="stylist-ring"></div>
+              <img src="https://res.cloudinary.com/cskamhz5/image/upload/v1788223745/vecteezy_curly-hair-woman-beautiful-selfie-and-fair-skin_47157902.jpg" alt="Chloe Sinclair - Creative Director" class="stylist-avatar" loading="lazy" />
+            </div>
+            <h3 class="stylist-name">Chloe Sinclair</h3>
+            <span class="stylist-role">Creative Director & Styling</span>
+            <p class="stylist-bio">
+              Expert in precision cutting, luminous gloss glazes, and luxury occasion styling delivered with a refined editorial finish.
             </p>
           </div>
         </div>
@@ -2903,18 +2948,10 @@
       <div class="container">
         <div class="shop-layout reveal-on-scroll">
           <div>
-            <div class="eyebrow">In-Salon Shop</div>
             <h2 class="headline-lg">Take Your Results Home</h2>
             <p class="lead-text" style="margin-top: 1rem; max-width: 46ch;">
               We stock a curated range of professional haircare and skincare brands, so you can maintain your results between visits. Ask our team for personalised recommendations.
             </p>
-            <div class="brand-pills">
-              <span class="brand-pill">Wella</span>
-              <span class="brand-pill">Nioxin</span>
-              <span class="brand-pill">EIMI</span>
-              <span class="brand-pill">Aspect Dr</span>
-              <span class="brand-pill">Systems Professional</span>
-            </div>
           </div>
           <div class="voucher-card">
             <div class="floating-icon" style="width: 52px; height: 52px;">
@@ -2937,7 +2974,6 @@
       <div class="container">
 
         <div class="services-header reveal-on-scroll">
-          <div class="eyebrow">Book Online</div>
           <h2 class="headline-lg">Book Your Appointment</h2>
           <p class="lead-text" style="margin-top: 1rem;">
             Select your treatment and preferred date, or call us on <a href="tel:+6475712183" style="color: var(--accent-gold-hover); text-decoration: underline;">07 571 2183</a> to book directly.
@@ -2973,9 +3009,12 @@
                 <div class="form-group">
                   <label class="form-label" for="stylistSelect">Preferred Team Member</label>
                   <select id="stylistSelect" class="form-select">
-                    <option value="No Preference">No Preference</option>
-                    <option value="Angela King (Owner)">Angela King (Owner)</option>
-                    <option value="First Available">First Available</option>
+                    <option value="No Preference">No Preference / First Available</option>
+                    <option value="Victoria Sterling (Founder & Owner)">Victoria Sterling (Founder & Owner)</option>
+                    <option value="Elena Mercer (General Manager & Master All-Rounder)">Elena Mercer (General Manager & Master All-Rounder)</option>
+                    <option value="Sophie Laurent (Master Colourist)">Sophie Laurent (Master Colourist)</option>
+                    <option value="Amara Vance (Texture Specialist)">Amara Vance (Texture Specialist)</option>
+                    <option value="Chloe Sinclair (Creative Director)">Chloe Sinclair (Creative Director)</option>
                   </select>
                 </div>
               </div>
@@ -2986,7 +3025,6 @@
                   <div>
                     <div class="calendar-header">
                       <span class="calendar-month" id="calendarMonth">October 2026</span>
-                      <div style="font-size: 0.8rem; color: var(--accent-gold); font-weight: 600;">Live Availability</div>
                     </div>
 
                     <div class="calendar-grid" id="calendarGrid">
@@ -3101,7 +3139,7 @@
             <li><a href="#services">Services</a></li>
             <li><a href="#shop">Shop & Vouchers</a></li>
             <li><a href="#philosophy">About</a></li>
-            <li><a href="#team">Meet the Owner</a></li>
+            <li><a href="#team">Meet the Team</a></li>
             <li><a href="#booking">Book Now</a></li>
             <li><a href="mailto:thecove@salonone.co.nz?subject=Careers%20Enquiry">Careers</a></li>
           </ul>
