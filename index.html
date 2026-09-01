@@ -2475,6 +2475,71 @@
         text-align: center;
       }
     }
+
+    /* Floating Scroll-to-Top Button */
+    .scroll-to-top-btn {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(18, 17, 21, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(229, 193, 88, 0.35);
+      color: var(--accent-gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 99;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(16px) scale(0.9);
+      transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                  background-color 0.25s ease,
+                  border-color 0.25s ease,
+                  color 0.25s ease,
+                  box-shadow 0.25s ease;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    }
+
+    .scroll-to-top-btn.is-visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0) scale(1);
+    }
+
+    .scroll-to-top-btn:hover {
+      background: rgba(229, 193, 88, 0.2);
+      border-color: var(--accent-gold);
+      color: #FFFFFF;
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 12px 36px rgba(229, 193, 88, 0.3), 0 4px 16px rgba(0, 0, 0, 0.6);
+    }
+
+    .scroll-to-top-btn:active {
+      transform: translateY(0) scale(0.95);
+    }
+
+    .scroll-to-top-btn svg {
+      transition: transform 0.25s ease;
+    }
+
+    .scroll-to-top-btn:hover svg {
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 768px) {
+      .scroll-to-top-btn {
+        bottom: 1.25rem;
+        right: 1.25rem;
+        width: 44px;
+        height: 44px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -3224,6 +3289,14 @@
     </div>
   </footer>
 
+  <!-- Floating Scroll to Top Arrow Button -->
+  <button id="scrollToTopBtn" class="scroll-to-top-btn" type="button" aria-label="Scroll to top" title="Back to top">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="12" y1="19" x2="12" y2="5"></line>
+      <polyline points="5 12 12 5 19 12"></polyline>
+    </svg>
+  </button>
+
   <script>
     (function () {
       'use strict';
@@ -3530,6 +3603,25 @@
       window.addEventListener('scroll', onScroll, { passive: true });
       window.addEventListener('resize', onScroll, { passive: true });
       onScroll();
+
+      /* -- Scroll to Top Floating Button -------------------------------- */
+      var scrollToTopBtn = document.getElementById('scrollToTopBtn');
+      if (scrollToTopBtn) {
+        function updateScrollToTop() {
+          if (window.scrollY > 300) {
+            scrollToTopBtn.classList.add('is-visible');
+          } else {
+            scrollToTopBtn.classList.remove('is-visible');
+          }
+        }
+        window.addEventListener('scroll', updateScrollToTop, { passive: true });
+        updateScrollToTop();
+
+        scrollToTopBtn.addEventListener('click', function (e) {
+          e.preventDefault();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }
 
       /* -- Mobile navigation ------------------------------------------- */
       var menuToggle = document.getElementById('menuToggle');
