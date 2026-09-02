@@ -1489,7 +1489,7 @@
 
     .editorial-metrics-inline {
       display: flex;
-      align-items: center;
+      align-items: flex-end;
       gap: 2rem;
       padding-top: 1.25rem;
       border-top: 1px solid rgba(255, 255, 255, 0.15);
@@ -2072,187 +2072,172 @@
     }
 
     /* ==========================================================================
-       BOOKING & CONCIERGE INTEGRATION
+       BOOKING: THE SWATCH FAN
+       A four-step, one-object flow — pick a service by fanning out its
+       price tiers like paint chips, then date & time, your details, and a
+       ticket-style confirmation. Replaces the old two-column form+calendar
+       layout. If a visitor arrives with an exact price already picked on
+       services.html (localStorage), that pick opens pre-fanned in Step 1.
        ========================================================================== */
     .booking-section {
       position: relative;
     }
 
-    .booking-box {
-      background: transparent;
-      backdrop-filter: none;
-      -webkit-backdrop-filter: none;
-      border: none;
-      border-radius: 0;
-      box-shadow: none;
-      padding: 0;
-      max-width: 960px;
-      margin-inline: auto;
-    }
-
-    .booking-layout {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-    }
-
-    .form-group {
-      margin-bottom: 1.5rem;
-    }
-
-    .form-label {
-      display: block;
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      font-weight: 600;
-      color: var(--text-sand);
-      margin-bottom: 0.5rem;
-    }
-
-    .form-input, .form-select {
-      width: 100%;
-      padding: 0.95rem 1.25rem;
-      background-color: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: var(--radius-sm);
-      font-family: inherit;
-      font-size: 0.95rem;
-      color: var(--text-white);
-      transition: all 0.3s ease;
-    }
-
-    .form-input:focus, .form-select:focus {
-      outline: none;
-      border-color: var(--accent-gold);
-      background-color: rgba(255, 255, 255, 0.09);
-      box-shadow: 0 0 0 3px rgba(229, 193, 88, 0.2);
-    }
-
-    .form-select option {
-      background-color: #121115;
-      color: #FFFFFF;
-    }
-
-    /* Stylized Mini Calendar Preview */
-    .calendar-card {
-      background: transparent;
-      border-radius: 0;
-      padding: 0;
-      border: none;
-      box-shadow: none;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .calendar-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1.25rem;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    .calendar-month {
-      font-family: var(--font-serif);
-      font-size: 1.25rem;
-      font-weight: 400;
-      color: var(--text-white);
-    }
-
-    .calendar-grid {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 6px;
+    .bk-header {
       text-align: center;
-      font-size: 0.8rem;
+      margin-bottom: 3rem;
     }
 
-    .calendar-day-header {
-      color: var(--text-muted);
-      font-weight: 600;
-      padding-bottom: 0.5rem;
-    }
-
-    .calendar-cell {
-      aspect-ratio: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      color: var(--text-sand);
-      font-variant-numeric: tabular-nums;
-      border: none;
+    .bk-box {
+      max-width: 760px;
+      margin-inline: auto;
       background: none;
-      font-family: inherit;
-      font-size: inherit;
-    }
-
-    .calendar-cell:hover:not(.disabled) {
-      background-color: var(--accent-gold-subtle);
-      color: var(--accent-gold);
-    }
-
-    .calendar-cell.active {
-      background-color: var(--accent-gold-primary);
-      color: #000000;
-      font-weight: 600;
-    }
-
-    .calendar-cell.disabled {
-      opacity: 0.25;
-      cursor: not-allowed;
-    }
-
-    .booking-summary {
-      background: transparent;
-      padding: 1.25rem 0 0 0;
-      border-radius: 0;
-      margin-top: 1.25rem;
-      font-size: 0.85rem;
       border: none;
-      border-top: 1px solid rgba(255, 255, 255, 0.12);
-      color: var(--text-sand);
+      border-radius: 0;
+      padding: 0;
+      box-shadow: none;
     }
 
-    .summary-row {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 0.4rem;
-      gap: 1rem;
+    /* Progress thread */
+    .bk-progress { display: flex; align-items: center; justify-content: center; margin-bottom: 1.75rem; }
+    .bk-stop { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
+    .bk-dot {
+      width: 32px; height: 32px; border-radius: 50%; border: 1.5px solid var(--border-glass);
+      display: flex; align-items: center; justify-content: center; font-family: var(--font-serif); font-size: 0.9rem;
+      color: var(--text-muted); background: var(--bg-noir-elevated); transition: all 0.3s var(--ease-editorial);
     }
+    .bk-label { font-size: 0.64rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
+    .bk-stop.done .bk-dot { background: #FFFFFF; border-color: #FFFFFF; color: #141314; }
+    .bk-stop.active .bk-dot { border-color: #FFFFFF; color: #FFFFFF; box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.14); }
+    .bk-stop.active .bk-label { color: var(--text-white); font-weight: 600; }
+    .bk-line { width: clamp(24px, 6vw, 56px); height: 1px; background: var(--border-glass); margin: 0 0.4rem; margin-bottom: 1.2rem; }
+    .bk-line.done { background: #FFFFFF; }
 
-    .summary-row:last-child {
-      margin-bottom: 0;
-      font-weight: 600;
-      color: var(--accent-gold);
-    }
+    .bk-panels { position: relative; display: flex; flex-direction: column; justify-content: center; }
+    .bk-panel { display: none; }
+    .bk-panel.active { display: block; animation: bkFade 0.4s var(--ease-editorial); }
+    @keyframes bkFade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
-    .booking-confirmation {
-      display: none;
-      align-items: center;
-      gap: 0.75rem;
-      margin-top: 1.25rem;
-      padding: 1rem 1.25rem;
-      background: rgba(229, 193, 88, 0.15);
-      border: 1px solid var(--border-gold);
-      border-radius: var(--radius-sm);
-      font-size: 0.85rem;
-      color: var(--text-white);
-    }
+    .bk-eyebrow { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: #FFFFFF; font-weight: 600; text-align: center; }
+    .bk-title { font-family: var(--font-serif); font-size: clamp(1.5rem, 3vw, 1.85rem); color: var(--text-white); margin: 0.6rem 0 1.5rem; text-align: center; font-weight: 400; }
+    .bk-title-first { margin-top: 0; }
 
-    .booking-confirmation.visible {
-      display: flex;
+    /* Step 1: service tabs + fan of price-tier swatches */
+    .bk-svc-tabs { display: flex; justify-content: center; gap: 0.6rem; margin-bottom: 1.75rem; flex-wrap: wrap; }
+    .bk-svc-tabs.scrollable {
+      flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; padding-bottom: 0.6rem;
+      -webkit-overflow-scrolling: touch; scrollbar-width: thin; scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+      mask-image: linear-gradient(90deg, transparent, #000 24px, #000 calc(100% - 24px), transparent);
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 24px, #000 calc(100% - 24px), transparent);
     }
+    .bk-svc-tabs.scrollable::-webkit-scrollbar { height: 5px; }
+    .bk-svc-tabs.scrollable::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.28); border-radius: 999px; }
+    .bk-svc-tab {
+      border: 1px solid var(--border-glass); background: rgba(255, 255, 255, 0.03); color: var(--text-sand);
+      padding: 0.55rem 1.2rem; border-radius: 9999px; font-family: var(--font-sans); font-size: 0.8rem;
+      cursor: pointer; transition: all 0.25s var(--ease-editorial); flex-shrink: 0; white-space: nowrap;
+    }
+    .bk-svc-tab:hover { border-color: rgba(255, 255, 255, 0.4); color: var(--text-white); }
+    .bk-svc-tab.active { background: #FFFFFF; border-color: #FFFFFF; color: #141314; font-weight: 600; }
 
-    .booking-confirmation svg {
-      color: var(--accent-gold);
-      flex-shrink: 0;
+    .bk-fan { position: relative; height: 250px; display: flex; justify-content: center; margin-bottom: 2.5rem; }
+    .bk-swatch {
+      position: absolute; bottom: 0; width: 120px; height: 230px; border-radius: 12px 12px 4px 4px;
+      box-shadow: 0 14px 32px -10px rgba(0, 0, 0, 0.6); cursor: pointer; transform-origin: bottom center;
+      transform: rotate(var(--rot)) translateX(var(--tx));
+      transition: transform 0.35s cubic-bezier(.4, .2, 0, 1), box-shadow 0.35s ease;
+      display: flex; flex-direction: column; align-items: center; padding-top: 1.2rem;
+      border: 1px solid rgba(255, 255, 255, 0.12);
     }
+    .bk-swatch .sw-service {
+      font-size: 0.56rem; font-weight: 700; letter-spacing: 0.02em; text-align: center; text-transform: uppercase;
+      padding: 0 0.4rem; line-height: 1.3; margin-bottom: 0.5rem;
+      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+      text-shadow: 0 0 6px rgba(255, 255, 255, 0.85), 0 0 16px rgba(255, 255, 255, 0.5);
+    }
+    .bk-swatch .sw-name { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.04em; text-align: center; padding: 0 0.5rem; }
+    .bk-swatch .sw-price { font-family: var(--font-serif); font-size: 1.4rem; margin-top: 0.7rem; }
+    .bk-swatch.active {
+      transform: translateY(-28px) scale(1.04) rotate(var(--rot)) translateX(var(--tx));
+      box-shadow: 0 26px 50px -12px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.5), 0 0 34px 6px rgba(255, 255, 255, 0.4);
+      z-index: 5;
+    }
+    .bk-fan:hover .bk-swatch:not(.active) { opacity: 0.88; }
+
+    .bk-selected-name { font-family: var(--font-serif); font-size: 1.6rem; color: #FFFFFF; text-align: center; margin-bottom: 1.25rem; font-variant-numeric: tabular-nums; }
+
+    .bk-browse-link { text-align: center; margin-bottom: 1rem; }
+    .bk-browse-link a { font-size: 0.8rem; color: var(--text-sand); text-decoration: underline; text-underline-offset: 3px; }
+    .bk-browse-link a:hover { color: #FFFFFF; }
+
+    /* Step 2: date + time, flattened out of the swatch language */
+    .bk-month-nav { display: flex; align-items: center; justify-content: center; gap: 1.1rem; margin-bottom: 1.1rem; }
+    .bk-month-arrow {
+      width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--border-glass); background: rgba(255, 255, 255, 0.03);
+      color: var(--text-white); font-size: 1.1rem; line-height: 1; cursor: pointer; transition: all 0.2s var(--ease-editorial);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .bk-month-arrow:hover:not(:disabled) { border-color: #FFFFFF; background: rgba(255, 255, 255, 0.1); }
+    .bk-month-arrow:disabled { opacity: 0.25; cursor: not-allowed; }
+    .bk-month-label { font-family: var(--font-serif); font-size: 1.05rem; color: var(--text-white); min-width: 150px; text-align: center; }
+    .bk-day-row { display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; align-content: flex-start; margin-bottom: 1.75rem; min-height: 280px; }
+    .bk-day-chip {
+      width: 60px; padding: 0.7rem 0; border-radius: 10px; border: 1px solid var(--border-glass); background: rgba(255, 255, 255, 0.03);
+      text-align: center; cursor: pointer; transition: all 0.2s var(--ease-editorial); font-family: var(--font-sans);
+    }
+    .bk-day-chip .dc-dow { font-size: 0.62rem; letter-spacing: 0.06em; color: var(--text-muted); text-transform: uppercase; }
+    .bk-day-chip .dc-num { font-family: var(--font-serif); font-size: 1.25rem; margin-top: 0.2rem; color: var(--text-white); }
+    .bk-day-chip.active { background: #FFFFFF; border-color: #FFFFFF; }
+    .bk-day-chip.active .dc-dow, .bk-day-chip.active .dc-num { color: #141314; }
+
+    .bk-time-row { display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; margin-bottom: 0.5rem; }
+    .bk-time-chip {
+      border: 1px solid var(--border-glass); background: transparent; color: var(--text-sand); padding: 0.55rem 1.05rem;
+      border-radius: 9999px; font-family: var(--font-sans); font-size: 0.8rem; cursor: pointer; transition: all 0.2s var(--ease-editorial);
+    }
+    .bk-time-chip:hover { border-color: rgba(255, 255, 255, 0.4); color: var(--text-white); }
+    .bk-time-chip.active { background: #FFFFFF; border-color: #FFFFFF; color: #141314; font-weight: 600; }
+
+    /* Step 3: details, understated underline fields */
+    .bk-field { margin-bottom: 1.5rem; max-width: 420px; margin-inline: auto; }
+    .bk-field label { display: block; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.55rem; }
+    .bk-field input, .bk-field select {
+      width: 100%; border: none; border-bottom: 1.5px solid var(--border-glass); background: transparent; padding: 0.55rem 0.1rem;
+      font-family: var(--font-sans); font-size: 1rem; color: var(--text-white); outline: none; transition: border-color 0.2s ease;
+    }
+    .bk-field select { cursor: pointer; }
+    .bk-field select option { background: var(--bg-noir-elevated); color: var(--text-white); }
+    .bk-field input:focus, .bk-field select:focus { border-color: #FFFFFF; }
+    .bk-field input::placeholder { color: #6b6659; }
+    .bk-field-error { font-size: 0.75rem; color: #e0836b; margin-top: 0.45rem; display: none; }
+    .bk-field-error.visible { display: block; }
+
+    /* Step 4: confirm ticket */
+    .bk-confirm-card { max-width: 420px; margin: 0 auto; border: 1px solid rgba(255, 255, 255, 0.3); border-radius: var(--radius-md); padding: 1.85rem; background: rgba(255, 255, 255, 0.05); }
+    .bk-confirm-row { display: flex; justify-content: space-between; gap: 1rem; padding: 0.6rem 0; border-bottom: 1px dotted var(--border-glass); font-size: 0.86rem; color: var(--text-sand); }
+    .bk-confirm-row span:last-child { color: var(--text-white); text-align: right; }
+    .bk-confirm-row:last-of-type { border-bottom: none; }
+    .bk-confirm-price { font-family: var(--font-serif); font-size: 2.4rem; text-align: center; margin: 1.35rem 0 0.6rem; color: #FFFFFF; font-variant-numeric: tabular-nums; }
+    .bk-confirm-note { text-align: center; font-size: 0.72rem; color: var(--text-muted); margin: 0; line-height: 1.5; }
+
+    .bk-step-actions { display: flex; justify-content: center; gap: 0.85rem; margin-top: 1.5rem; flex-wrap: wrap; }
+    .bk-cta {
+      background: #FFFFFF; color: #141314; border: none; padding: 0.95rem 2.25rem; border-radius: 9999px;
+      font-family: var(--font-sans); font-size: 0.85rem; font-weight: 600; letter-spacing: 0.04em; cursor: pointer;
+      transition: all 0.25s var(--ease-editorial);
+    }
+    .bk-cta:hover { background: #D8D8D8; transform: translateY(-1px); }
+    .bk-cta.ghost { background: transparent; color: var(--text-sand); border: 1px solid var(--border-glass); }
+    .bk-cta.ghost:hover { border-color: #FFFFFF; color: var(--text-white); }
+    .bk-cta:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+    .bk-confirmation {
+      display: none; align-items: center; gap: 0.75rem; margin-top: 1.5rem; padding: 1rem 1.25rem;
+      background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.3); border-radius: var(--radius-sm);
+      font-size: 0.85rem; color: var(--text-white);
+    }
+    .bk-confirmation.visible { display: flex; }
+    .bk-confirmation svg { color: #FFFFFF; flex-shrink: 0; }
 
     /* ==========================================================================
        FOOTER
@@ -2459,9 +2444,9 @@
         justify-content: center;
       }
 
-      .booking-layout {
-        grid-template-columns: 1fr;
-        gap: 2rem;
+      .bk-swatch {
+        width: 96px;
+        height: 190px;
       }
 
       .footer-grid {
@@ -2559,10 +2544,8 @@
         <li><a href="#gallery" class="nav-link">Gallery</a></li>
         <li><a href="#product" class="nav-link">Product</a></li>
         <li><a href="#shop" class="nav-link">Shop</a></li>
-        <li><a href="#weddings" class="nav-link">Weddings</a></li>
         <li><a href="#services" class="nav-link">Services</a></li>
         <li><a href="#philosophy" class="nav-link">About</a></li>
-        <li><a href="#booking" class="nav-link">Book Now</a></li>
       </ul>
 
       <div class="nav-actions">
@@ -2580,10 +2563,8 @@
     <a href="#gallery" class="nav-link mobile-link">Gallery</a>
     <a href="#product" class="nav-link mobile-link">Product</a>
     <a href="#shop" class="nav-link mobile-link">Shop</a>
-    <a href="#weddings" class="nav-link mobile-link">Weddings</a>
     <a href="#services" class="nav-link mobile-link">Services</a>
     <a href="#philosophy" class="nav-link mobile-link">About</a>
-    <a href="#booking" class="nav-link mobile-link">Book Now</a>
     <a href="#booking" class="btn btn-primary mobile-link" style="margin-top: 1rem;">Book Appointment</a>
   </div>
 
@@ -2800,7 +2781,7 @@
             <button type="button" class="editorial-services-dropdown-btn" id="servicesDropdownBtn" aria-haspopup="listbox" aria-expanded="false" aria-label="Select salon service">
               <div class="editorial-dropdown-btn-content">
                 <span class="editorial-dropdown-num" id="selectedServiceNum">01</span>
-                <span class="editorial-dropdown-label" id="selectedServiceTitle">Hair Styling</span>
+                <span class="editorial-dropdown-label" id="selectedServiceTitle">Hair Cuts &amp; Styling</span>
               </div>
               <div class="editorial-dropdown-chevron">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
@@ -2811,7 +2792,7 @@
               <button type="button" class="editorial-dropdown-item active" data-service-idx="0" role="option" aria-selected="true">
                 <div class="editorial-dropdown-item-left">
                   <span class="editorial-dropdown-item-num">01</span>
-                  <span class="editorial-dropdown-item-text">Hair Styling</span>
+                  <span class="editorial-dropdown-item-text">Hair Cuts &amp; Styling</span>
                 </div>
                 <svg class="editorial-dropdown-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
               </button>
@@ -2825,42 +2806,42 @@
               <button type="button" class="editorial-dropdown-item" data-service-idx="2" role="option" aria-selected="false">
                 <div class="editorial-dropdown-item-left">
                   <span class="editorial-dropdown-item-num">03</span>
-                  <span class="editorial-dropdown-item-text">Cut &amp; Finish</span>
+                  <span class="editorial-dropdown-item-text">Hair Treatments</span>
                 </div>
                 <svg class="editorial-dropdown-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
               </button>
               <button type="button" class="editorial-dropdown-item" data-service-idx="3" role="option" aria-selected="false">
                 <div class="editorial-dropdown-item-left">
                   <span class="editorial-dropdown-item-num">04</span>
-                  <span class="editorial-dropdown-item-text">Facials &amp; Glow</span>
+                  <span class="editorial-dropdown-item-text">Grey Blending &amp; Balayage</span>
                 </div>
                 <svg class="editorial-dropdown-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
               </button>
               <button type="button" class="editorial-dropdown-item" data-service-idx="4" role="option" aria-selected="false">
                 <div class="editorial-dropdown-item-left">
                   <span class="editorial-dropdown-item-num">05</span>
-                  <span class="editorial-dropdown-item-text">Nails &amp; Pedicures</span>
+                  <span class="editorial-dropdown-item-text">Eyes &amp; Brows</span>
                 </div>
                 <svg class="editorial-dropdown-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
               </button>
               <button type="button" class="editorial-dropdown-item" data-service-idx="5" role="option" aria-selected="false">
                 <div class="editorial-dropdown-item-left">
                   <span class="editorial-dropdown-item-num">06</span>
-                  <span class="editorial-dropdown-item-text">Brows &amp; Lashes</span>
+                  <span class="editorial-dropdown-item-text">Nails &amp; Pedicures</span>
                 </div>
                 <svg class="editorial-dropdown-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
               </button>
               <button type="button" class="editorial-dropdown-item" data-service-idx="6" role="option" aria-selected="false">
                 <div class="editorial-dropdown-item-left">
                   <span class="editorial-dropdown-item-num">07</span>
-                  <span class="editorial-dropdown-item-text">Makeup Artistry</span>
+                  <span class="editorial-dropdown-item-text">Facials &amp; Beauty Packages</span>
                 </div>
                 <svg class="editorial-dropdown-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
               </button>
               <button type="button" class="editorial-dropdown-item" data-service-idx="7" role="option" aria-selected="false">
                 <div class="editorial-dropdown-item-left">
                   <span class="editorial-dropdown-item-num">08</span>
-                  <span class="editorial-dropdown-item-text">Bridal Atelier</span>
+                  <span class="editorial-dropdown-item-text">Wedding Hair &amp; Makeup</span>
                 </div>
                 <svg class="editorial-dropdown-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
               </button>
@@ -2877,19 +2858,18 @@
             <!-- Hero Layout: Headline & Asymmetrical Image Composition -->
             <div class="editorial-hero-row">
               <div class="editorial-hero-text">
-                <h3 class="editorial-service-heading" id="hudActiveTitle">Hair Styling</h3>
+                <h3 class="editorial-service-heading" id="hudActiveTitle">Hair Cuts &amp; Styling</h3>
                 <p class="editorial-service-desc" id="hudActiveDesc">
-                  Signature styling tailored to your hair type, texture and personal look.
+                  Precision cuts and blow waves, tailored to you.
                 </p>
 
                 <div class="editorial-metrics-inline">
                   <div class="editorial-metric-unit">
                     <span class="editorial-metric-kicker">DURATION</span>
-                    <span class="editorial-metric-data" id="metricDuration">60–90 MIN</span>
+                    <span class="editorial-metric-data" id="metricDuration">VARIES</span>
                   </div>
                   <div class="editorial-metric-unit">
-                    <span class="editorial-metric-kicker">INVESTMENT</span>
-                    <span class="editorial-metric-data gold" id="metricPrice">$85</span>
+                    <span class="editorial-metric-data gold" id="metricPrice">from $25</span>
                   </div>
                   <div class="editorial-metric-unit">
                     <span class="editorial-metric-kicker">AVAILABILITY</span>
@@ -2905,8 +2885,8 @@
                 <img
                   id="hudVisualImg"
                   class="editorial-visual-img"
-                  src="https://images.unsplash.com/photo-1560066984-138dadb4c035?q=80&amp;w=1200&amp;auto=format&amp;fit=crop"
-                  alt="Haute Salon Styling Discipline"
+                  src="https://salonone.co.nz/wp-content/uploads/2025/03/Haircuts.jpg"
+                  alt="Hair cuts and styling at Salon One"
                   loading="lazy"
                 />
                 <div class="editorial-frame-overlay"></div>
@@ -2916,20 +2896,18 @@
             <!-- Treatment Menu List (Hairline Separators) -->
             <div class="editorial-treatments-section">
               <div class="editorial-treatments-head">
-                <span>TREATMENT MENU &amp; CRAFT</span>
-                <span>DURATION / INVESTMENT / BOOK</span>
+                <span>TREATMENT MENU</span>
+                <span>DETAILS</span>
               </div>
               <div class="editorial-treatments-list" id="hudTreatmentList">
                 <!-- Populated dynamically by script -->
                 <div class="editorial-treatment-line">
                   <div class="editorial-treatment-name-wrap">
-                    <span class="editorial-treatment-name">Blow Wave</span>
-                    <span class="editorial-treatment-meta">45 MIN · SIGNATURE SMOOTHING</span>
+                    <span class="editorial-treatment-name">Female Cut &amp; Dry</span>
                   </div>
                   <div class="editorial-treatment-right">
-                    <span class="editorial-treatment-cost">$65</span>
-                    <a href="#booking" class="editorial-book-link" data-treatment="Blow Wave">
-                      Reserve
+                    <a href="services.html?svc=Female%20Cut%20%26%20Dry#cuts" class="editorial-book-link">
+                      Details
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
                     </a>
                   </div>
@@ -2940,12 +2918,8 @@
             <!-- Bottom Editorial Actions -->
             <div class="editorial-footer-bar">
               <div class="editorial-actions-group">
-                <a href="#booking" class="btn-editorial-primary" id="hudMainBookBtn">
-                  RESERVE APPOINTMENT
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
-                </a>
-                <a href="#booking" class="btn-editorial-secondary" id="hudPriceListBtn">
-                  EXPLORE FULL ATELIER MENU
+                <a href="services.html#cuts" class="btn-editorial-secondary" id="hudPriceListBtn">
+                  VIEW ALL SERVICES
                 </a>
               </div>
             </div>
@@ -3095,123 +3069,121 @@
     <section class="section-spacing booking-section" id="booking">
       <div class="container">
 
-        <div class="services-header reveal-on-scroll">
+        <div class="services-header bk-header reveal-on-scroll">
           <h2 class="headline-lg">Book Your Appointment</h2>
-          <p class="lead-text" style="margin-top: 1rem;">
-            Select your treatment and preferred date, or call us on <a href="tel:+6475712183" style="color: var(--accent-gold-hover); text-decoration: underline;">07 571 2183</a> to book directly.
-          </p>
         </div>
 
-        <div class="booking-box reveal-on-scroll delay-100">
-          <form id="bookingForm">
-            <div class="booking-layout">
+        <div class="bk-box reveal-on-scroll delay-100" id="bkBox">
 
-              <!-- Form Column -->
-              <div class="booking-form-col">
-                <div class="form-group">
-                  <label class="form-label" for="clientName">Full Name</label>
-                  <input type="text" id="clientName" class="form-input" placeholder="e.g. Vivienne Laurent" required />
-                </div>
+          <div class="bk-progress" id="bkProgress">
+            <div class="bk-stop active" data-step="1"><div class="bk-dot">I</div><div class="bk-label">Service</div></div>
+            <div class="bk-line"></div>
+            <div class="bk-stop" data-step="2"><div class="bk-dot">II</div><div class="bk-label">Date &amp; Time</div></div>
+            <div class="bk-line"></div>
+            <div class="bk-stop" data-step="3"><div class="bk-dot">III</div><div class="bk-label">Your Details</div></div>
+            <div class="bk-line"></div>
+            <div class="bk-stop" data-step="4"><div class="bk-dot">IV</div><div class="bk-label">Confirm</div></div>
+          </div>
 
-                <div class="form-group">
-                  <label class="form-label" for="clientEmail">Email Address</label>
-                  <input type="email" id="clientEmail" class="form-input" placeholder="vivienne@domain.com" required />
-                </div>
+          <div class="bk-panels" id="bkPanels">
 
-                <div class="form-group">
-                  <label class="form-label" for="serviceSelect">Select Treatment</label>
-                  <select id="serviceSelect" class="form-select" required>
-                    <option value="Hairdressing" selected>Hairdressing</option>
-                    <option value="Beauty Therapy">Beauty Therapy</option>
-                    <option value="Nails & Pedicures">Nails & Pedicures</option>
-                    <option value="Wedding & Occasion Styling">Wedding & Occasion Styling</option>
-                  </select>
-                </div>
+          <div class="bk-panels" id="bkPanels">
 
-                <div class="form-group">
-                  <label class="form-label" for="stylistSelect">Preferred Team Member</label>
-                  <select id="stylistSelect" class="form-select">
-                    <option value="No Preference">No Preference / First Available</option>
-                    <option value="Victoria Sterling (Founder & Owner)">Victoria Sterling (Founder & Owner)</option>
-                    <option value="Elena Mercer (General Manager & Master All-Rounder)">Elena Mercer (General Manager & Master All-Rounder)</option>
-                    <option value="Sophie Laurent (Master Colourist)">Sophie Laurent (Master Colourist)</option>
-                    <option value="Amara Vance (Texture Specialist)">Amara Vance (Texture Specialist)</option>
-                    <option value="Chloe Sinclair (Creative Director)">Chloe Sinclair (Creative Director)</option>
-                  </select>
-                </div>
-              </div>
+          <!-- STEP 1 — service + price-tier fan. Pre-fanned from
+               localStorage when a visitor arrives with an exact price
+               already picked on services.html. -->
+          <div class="bk-panel active" data-panel="1">
+            <div class="bk-title bk-title-first">Pick a service, then your level</div>
+            <div class="bk-svc-tabs" id="bkSvcTabs"></div>
+            <div class="bk-fan" id="bkFan"></div>
+            <div class="bk-selected-name" id="bkSelPrice"></div>
+            <div class="bk-browse-link"><a href="services.html">Browse the full service menu &amp; prices →</a></div>
+            <div class="bk-step-actions"><button type="button" class="bk-cta" data-next="2">Continue to Date &amp; Time →</button></div>
+          </div>
 
-              <!-- Interactive Mock Calendar Column -->
-              <div class="booking-cal-col">
-                <div class="calendar-card">
-                  <div>
-                    <div class="calendar-header">
-                      <span class="calendar-month" id="calendarMonth">October 2026</span>
-                    </div>
-
-                    <div class="calendar-grid" id="calendarGrid">
-                      <div class="calendar-day-header">M</div>
-                      <div class="calendar-day-header">T</div>
-                      <div class="calendar-day-header">W</div>
-                      <div class="calendar-day-header">T</div>
-                      <div class="calendar-day-header">F</div>
-                      <div class="calendar-day-header">S</div>
-                      <div class="calendar-day-header">S</div>
-
-                      <button type="button" class="calendar-cell disabled" disabled>28</button>
-                      <button type="button" class="calendar-cell disabled" disabled>29</button>
-                      <button type="button" class="calendar-cell disabled" disabled>30</button>
-                      <button type="button" class="calendar-cell">1</button>
-                      <button type="button" class="calendar-cell">2</button>
-                      <button type="button" class="calendar-cell">3</button>
-                      <button type="button" class="calendar-cell">4</button>
-
-                      <button type="button" class="calendar-cell">5</button>
-                      <button type="button" class="calendar-cell">6</button>
-                      <button type="button" class="calendar-cell">7</button>
-                      <button type="button" class="calendar-cell">8</button>
-                      <button type="button" class="calendar-cell">9</button>
-                      <button type="button" class="calendar-cell">10</button>
-                      <button type="button" class="calendar-cell">11</button>
-
-                      <button type="button" class="calendar-cell">12</button>
-                      <button type="button" class="calendar-cell">13</button>
-                      <button type="button" class="calendar-cell active" id="selectedDate">14</button>
-                      <button type="button" class="calendar-cell">15</button>
-                      <button type="button" class="calendar-cell">16</button>
-                      <button type="button" class="calendar-cell">17</button>
-                      <button type="button" class="calendar-cell">18</button>
-                    </div>
-                  </div>
-
-                  <div class="booking-summary">
-                    <div class="summary-row">
-                      <span>Selected Date:</span>
-                      <span id="summaryDateDisplay" style="font-weight: 500;">Oct 14, 2026 — 2:00 PM</span>
-                    </div>
-                    <div class="summary-row">
-                      <span>Complimentary Consultation:</span>
-                      <span>Included</span>
-                    </div>
-                  </div>
-                </div>
-
-                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1.5rem;" id="submitBtn">
-                  Confirm Booking Request
-                </button>
-
-                <div class="booking-confirmation" id="bookingConfirmation">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                  <span>Request received — our team will confirm your appointment by email shortly.</span>
-                </div>
-
-                <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 1.25rem; line-height: 1.6;">
-                  Please provide at least 24 hours' notice to cancel or reschedule. A 50% fee applies to no-shows.
-                </p>
-              </div>
-
+          <!-- STEP 2 — date & time -->
+          <div class="bk-panel" data-panel="2">
+            <div class="bk-eyebrow">Fraser Cove, Tauranga</div>
+            <div class="bk-title">When suits you?</div>
+            <div class="bk-month-nav">
+              <button type="button" class="bk-month-arrow" id="bkPrevMonth" aria-label="Previous month">‹</button>
+              <span class="bk-month-label" id="bkMonthLabel"></span>
+              <button type="button" class="bk-month-arrow" id="bkNextMonth" aria-label="Next month">›</button>
             </div>
-          </form>
+            <div class="bk-day-row" id="bkDays"></div>
+            <div class="bk-time-row" id="bkTimes">
+              <button type="button" class="bk-time-chip" data-time="9:00am">9:00am</button>
+              <button type="button" class="bk-time-chip active" data-time="11:30am">11:30am</button>
+              <button type="button" class="bk-time-chip" data-time="1:15pm">1:15pm</button>
+              <button type="button" class="bk-time-chip" data-time="3:45pm">3:45pm</button>
+              <button type="button" class="bk-time-chip" data-time="5:00pm">5:00pm</button>
+            </div>
+            <div class="bk-step-actions">
+              <button type="button" class="bk-cta ghost" data-back="1">← Back</button>
+              <button type="button" class="bk-cta" data-next="3">Continue to Your Details →</button>
+            </div>
+          </div>
+
+          <!-- STEP 3 — details -->
+          <div class="bk-panel" data-panel="3">
+            <div class="bk-eyebrow">Almost there</div>
+            <div class="bk-title">A few details for the booking</div>
+            <div class="bk-field">
+              <label for="bkName">Full Name</label>
+              <input id="bkName" type="text" placeholder="e.g. Vivienne Laurent" />
+            </div>
+            <div class="bk-field">
+              <label for="bkEmail">Email Address</label>
+              <input id="bkEmail" type="email" placeholder="vivienne@domain.com" />
+              <div class="bk-field-error" id="bkFieldError">Please enter your name and a valid email address.</div>
+            </div>
+            <div class="bk-field">
+              <label for="bkPhone">Phone Number</label>
+              <input id="bkPhone" type="tel" placeholder="021 234 5678" />
+            </div>
+            <div class="bk-field">
+              <label for="bkStylist">Preferred Team Member</label>
+              <select id="bkStylist">
+                <option value="No Preference">No Preference / First Available</option>
+                <option value="Victoria Sterling (Founder & Owner)">Victoria Sterling (Founder &amp; Owner)</option>
+                <option value="Elena Mercer (General Manager & Master All-Rounder)">Elena Mercer (General Manager &amp; Master All-Rounder)</option>
+                <option value="Sophie Laurent (Master Colourist)">Sophie Laurent (Master Colourist)</option>
+                <option value="Amara Vance (Texture Specialist)">Amara Vance (Texture Specialist)</option>
+                <option value="Chloe Sinclair (Creative Director)">Chloe Sinclair (Creative Director)</option>
+              </select>
+            </div>
+            <div class="bk-step-actions">
+              <button type="button" class="bk-cta ghost" data-back="2">← Back</button>
+              <button type="button" class="bk-cta" data-next="4">Review &amp; Confirm →</button>
+            </div>
+          </div>
+
+          <!-- STEP 4 — confirm -->
+          <div class="bk-panel" data-panel="4">
+            <div class="bk-eyebrow">Last look before you reserve</div>
+            <div class="bk-title">Confirm your appointment</div>
+            <div class="bk-confirm-card">
+              <div class="bk-confirm-row"><span>Service</span><span id="bkConfService"></span></div>
+              <div class="bk-confirm-row"><span>Team Level</span><span id="bkConfTier"></span></div>
+              <div class="bk-confirm-row"><span>Date</span><span id="bkConfDay"></span></div>
+              <div class="bk-confirm-row"><span>Time</span><span id="bkConfTime"></span></div>
+              <div class="bk-confirm-row"><span>Team Member</span><span id="bkConfStylist"></span></div>
+              <div class="bk-confirm-row"><span>Name</span><span id="bkConfName"></span></div>
+              <div class="bk-confirm-price" id="bkConfPrice"></div>
+              <div class="bk-confirm-note">Please provide at least 24 hours' notice to cancel or reschedule. A 50% fee applies to no-shows.</div>
+            </div>
+            <div class="bk-step-actions">
+              <button type="button" class="bk-cta ghost" data-back="3">← Back</button>
+              <button type="button" class="bk-cta" id="bkSubmitBtn">Reserve This Appointment</button>
+            </div>
+            <div class="bk-confirmation" id="bkConfirmation">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              <span>Request received — our team will confirm your appointment by email shortly.</span>
+            </div>
+          </div>
+
+          </div>
+
         </div>
 
       </div>
@@ -3261,7 +3233,7 @@
             <li><a href="#shop">Shop & Vouchers</a></li>
             <li><a href="#philosophy">About</a></li>
             <li><a href="#team">Meet the Team</a></li>
-            <li><a href="#services">Services</a></li>
+            <li><a href="services.html">Services</a></li>
             <li><a href="#booking">Book Now</a></li>
             <li><a href="mailto:thecove@salonone.co.nz?subject=Careers%20Enquiry">Careers</a></li>
           </ul>
@@ -3297,6 +3269,7 @@
     </svg>
   </button>
 
+  <script src="services-data.js"></script>
   <script>
     (function () {
       'use strict';
@@ -3665,37 +3638,362 @@
         revealTargets.forEach(function (el) { el.classList.add('is-revealed'); });
       }
 
-      /* -- Booking calendar ------------------------------------------- */
-      var calendarGrid = document.getElementById('calendarGrid');
-      var summaryDateDisplay = document.getElementById('summaryDateDisplay');
-      var cells = calendarGrid.querySelectorAll('.calendar-cell:not(.disabled)');
+      /* -- Booking: The Swatch Fan --------------------------------------
+         A four-step flow (Service+Level -> Date & Time -> Your Details ->
+         Confirm) built around a fanned deck of price-tier "swatches". If a
+         visitor arrives here with an exact price already picked on
+         services.html (stored in localStorage), that pick opens as its
+         own pre-fanned tab so nothing has to be re-chosen. Everything
+         after the initial read lives in local state — localStorage is
+         only the one-way handoff from services.html, not something this
+         page keeps rewriting as the visitor browses. ------------------- */
+      (function initSwatchFanBooking() {
+        var box = document.getElementById('bkBox');
+        if (!box) return;
 
-      cells.forEach(function (cell) {
-        cell.addEventListener('click', function () {
-          cells.forEach(function (c) { c.classList.remove('active'); });
-          cell.classList.add('active');
-          var day = cell.textContent.trim();
-          summaryDateDisplay.textContent = 'Oct ' + day + ', 2026 — 2:00 PM';
+        var STORAGE_KEY = 'salonOneSelectedService';
+        var TIER_NAMES = ['Stylist', 'Senior', 'Director', 'Artistic Dir.'];
+        var SWATCH_PALETTE = {
+          1: ['#1c1c1c'],
+          2: ['#F5F3EE', '#0A0A0B'],
+          3: ['#F5F3EE', '#8A8578', '#0A0A0B'],
+          4: ['#F5F3EE', '#B8B3A8', '#4A463E', '#0A0A0B']
+        };
+        var SWATCH_TEXT = {
+          1: ['#F5F3EE'],
+          2: ['#141414', '#F5F3EE'],
+          3: ['#141414', '#141414', '#F5F3EE'],
+          4: ['#141414', '#141414', '#F5F3EE', '#F5F3EE']
+        };
+        var QUICK_PICKS = [
+          { name: 'Male Cut', category: 'Hair Cuts & Styling', slug: 'cuts', tiers: TIER_NAMES.slice(), prices: ['$50', '$55', '$60', '$65'] },
+          { name: 'Female Cut & Dry', category: 'Hair Cuts & Styling', slug: 'cuts', tiers: TIER_NAMES.slice(), prices: ['$90', '$95', '$100', '$105'] },
+          { name: '1st Visit Haircut', category: 'Hair Cuts & Styling', slug: 'cuts', tiers: TIER_NAMES.slice(), prices: ['$110', '$115', '$125', '$135'] }
+        ];
+
+        function readSelection() {
+          try {
+            var raw = localStorage.getItem(STORAGE_KEY);
+            return raw ? JSON.parse(raw) : null;
+          } catch (e) { return null; }
+        }
+
+        // Turns one services-data.js category into the same {name, tiers,
+        // prices} shape the fan already understands, covering all three
+        // pricing shapes a category can hold (flat / 4-tier / Stylist-
+        // Senior pairs).
+        function categoryTabs(cat) {
+          var out = [];
+          (cat.services || []).forEach(function (s) {
+            if (s.flat) {
+              out.push({ name: s.name, category: cat.name, slug: cat.slug, detail: s.detail || '', tiers: [''], prices: [s.flat] });
+            } else if (s.prices) {
+              out.push({ name: s.name, category: cat.name, slug: cat.slug, detail: s.detail || '', tiers: TIER_NAMES.slice(), prices: s.prices.slice() });
+            }
+          });
+          (cat.pairServices || []).forEach(function (s) {
+            out.push({ name: s.name, category: cat.name, slug: cat.slug, detail: s.detail || '', tiers: ['Stylist', 'Senior'], prices: s.pair.slice() });
+          });
+          return out;
+        }
+
+        // The tab row only ever offers services that are actually relevant:
+        // arriving with a real pick from services.html shows that service's
+        // own category (an eyelash pick shows other eye treatments, never
+        // haircuts) — the generic quick-picks are strictly a cold-start
+        // default for a visitor who lands here with nothing chosen yet.
+        var incoming = readSelection();
+        var tabs;
+        var startTabIndex = 0;
+        if (incoming && incoming.service) {
+          var cat = (typeof CATEGORIES !== 'undefined') ? CATEGORIES.filter(function (c) { return c.slug === incoming.categorySlug; })[0] : null;
+          tabs = cat ? categoryTabs(cat) : [];
+          var matchIdx = -1;
+          for (var i = 0; i < tabs.length; i++) { if (tabs[i].name === incoming.service) { matchIdx = i; break; } }
+          if (matchIdx === -1) {
+            // Category data didn't have this exact row (or the category
+            // wasn't found) — fall back to just the one incoming service
+            // rather than showing nothing, or something unrelated.
+            tabs.unshift({
+              name: incoming.service,
+              category: incoming.category || 'Salon One',
+              slug: incoming.categorySlug || '',
+              detail: incoming.detail || '',
+              tiers: (incoming.tiers && incoming.tiers.length) ? incoming.tiers : [''],
+              prices: (incoming.prices && incoming.prices.length) ? incoming.prices : [incoming.selectedPrice || '']
+            });
+            matchIdx = 0;
+          }
+          tabs[matchIdx].isIncoming = true;
+          tabs[matchIdx].startTier = incoming.selectedTier;
+          startTabIndex = matchIdx;
+        } else {
+          tabs = QUICK_PICKS.slice();
+        }
+
+        var state = { tabIndex: startTabIndex, tierIndex: 0, day: '', time: '11:30am', name: '', email: '', phone: '', stylist: 'No Preference' };
+        function currentTab() { return tabs[state.tabIndex]; }
+
+        // Works for 1-4 swatches, not just a fixed deck of four.
+        function fanAngles(n) {
+          if (n <= 1) return [0];
+          var spread = Math.min(76, 26 * (n - 1));
+          var start = -spread / 2;
+          var step = spread / (n - 1);
+          var out = [];
+          for (var i = 0; i < n; i++) out.push(Math.round(start + step * i));
+          return out;
+        }
+
+        var svcTabsEl = document.getElementById('bkSvcTabs');
+        var fanEl = document.getElementById('bkFan');
+        var priceEl = document.getElementById('bkSelPrice');
+
+        function renderTabs() {
+          svcTabsEl.innerHTML = '';
+          svcTabsEl.classList.toggle('scrollable', tabs.length > 4);
+          var activeBtn = null;
+          tabs.forEach(function (tab, i) {
+            var btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'bk-svc-tab' + (i === state.tabIndex ? ' active' : '');
+            btn.textContent = (tab.isIncoming ? '✓ ' : '') + tab.name;
+            btn.addEventListener('click', function () {
+              state.tabIndex = i;
+              state.tierIndex = 0;
+              renderTabs();
+              renderFan();
+            });
+            if (i === state.tabIndex) activeBtn = btn;
+            svcTabsEl.appendChild(btn);
+          });
+          if (activeBtn && svcTabsEl.classList.contains('scrollable')) {
+            activeBtn.scrollIntoView({ inline: 'center', block: 'nearest' });
+          }
+        }
+
+        function renderFan() {
+          var tab = currentTab();
+          var usableTiers = [], usablePrices = [];
+          tab.tiers.forEach(function (t, i) {
+            var p = tab.prices[i];
+            if (!p || p === '—') return;
+            usableTiers.push(t || 'Price');
+            usablePrices.push(p);
+          });
+          if (!usableTiers.length) { usableTiers = ['Price']; usablePrices = [tab.prices[0] || '']; }
+
+          if (tab.isIncoming && tab.startTier) {
+            var startIdx = usableTiers.indexOf(tab.startTier);
+            state.tierIndex = startIdx !== -1 ? startIdx : 0;
+            tab.startTier = null; // only steer the fan into place once
+          } else if (state.tierIndex >= usableTiers.length) {
+            state.tierIndex = usableTiers.length > 1 ? 1 : 0;
+          }
+
+          var n = usableTiers.length;
+          var angles = fanAngles(n);
+          var palette = SWATCH_PALETTE[n] || SWATCH_PALETTE[4];
+          var textPalette = SWATCH_TEXT[n] || SWATCH_TEXT[4];
+
+          fanEl.innerHTML = '';
+          usableTiers.forEach(function (tierName, i) {
+            var sw = document.createElement('div');
+            sw.className = 'bk-swatch' + (i === state.tierIndex ? ' active' : '');
+            sw.style.setProperty('--rot', angles[i] + 'deg');
+            sw.style.setProperty('--tx', (angles[i] * 1.5) + 'px');
+            sw.style.background = palette[i] || palette[palette.length - 1];
+            sw.style.color = textPalette[i] || textPalette[textPalette.length - 1];
+            // Inline z-index always beats the .active class's z-index from
+            // the stylesheet, so the active state has to be decided here —
+            // otherwise a swatch raised on the left can still render under
+            // a higher-index neighbor to its right.
+            sw.style.zIndex = (i === state.tierIndex) ? '10' : String(i + 1);
+            var serviceNameHtml = (i === state.tierIndex) ? '<span class="sw-service">' + tab.name + '</span>' : '';
+            sw.innerHTML = serviceNameHtml + '<span class="sw-name">' + tierName.toUpperCase() + '</span><span class="sw-price">' + usablePrices[i] + '</span>';
+            sw.addEventListener('click', function () {
+              state.tierIndex = i;
+              renderFan();
+            });
+            fanEl.appendChild(sw);
+          });
+
+          var priceLabel = usablePrices[state.tierIndex];
+          priceEl.textContent = priceLabel;
+        }
+
+        renderTabs();
+        renderFan();
+
+        /* -- Step navigation --------------------------------------------- */
+        var panels = box.querySelectorAll('.bk-panel');
+        var stops = document.querySelectorAll('#bkProgress .bk-stop');
+        var lines = document.querySelectorAll('#bkProgress .bk-line');
+
+        function goStep(n) {
+          panels.forEach(function (p) { p.classList.toggle('active', p.dataset.panel === String(n)); });
+          stops.forEach(function (s) {
+            var step = parseInt(s.dataset.step, 10);
+            s.classList.toggle('active', step === n);
+            s.classList.toggle('done', step < n);
+          });
+          lines.forEach(function (l, i) { l.classList.toggle('done', i < n - 1); });
+          if (n === 4) fillConfirm();
+        }
+
+        // Every step's panel is measured up front and the tallest height is
+        // locked onto the shared wrapper, so switching steps never changes
+        // the section's own height — nothing below it (the footer) shifts.
+        var panelsWrap = document.getElementById('bkPanels');
+        function lockPanelsHeight() {
+          var max = 0;
+          panels.forEach(function (p) {
+            var wasActive = p.classList.contains('active');
+            if (!wasActive) p.classList.add('active');
+            p.style.position = 'absolute';
+            p.style.visibility = 'hidden';
+            p.style.top = '0';
+            p.style.width = '100%';
+            max = Math.max(max, p.offsetHeight);
+            p.style.position = '';
+            p.style.visibility = '';
+            p.style.top = '';
+            p.style.width = '';
+            if (!wasActive) p.classList.remove('active');
+          });
+          panelsWrap.style.minHeight = max + 'px';
+        }
+
+        box.querySelectorAll('[data-next]').forEach(function (b) {
+          b.addEventListener('click', function () {
+            var next = parseInt(b.dataset.next, 10);
+            if (next === 4 && !validateDetails()) { goStep(3); return; }
+            goStep(next);
+          });
         });
-      });
+        box.querySelectorAll('[data-back]').forEach(function (b) {
+          b.addEventListener('click', function () { goStep(parseInt(b.dataset.back, 10)); });
+        });
 
-      /* -- Booking form submission (front-end simulation) -------------- */
-      var bookingForm = document.getElementById('bookingForm');
-      var submitBtn = document.getElementById('submitBtn');
-      var bookingConfirmation = document.getElementById('bookingConfirmation');
+        /* -- Step 2: date + time ------------------------------------------
+           Every open day of the month is selectable, not just the next
+           handful — visitors browse forward month by month (September,
+           October, ...) with the same day-chip look, just more of them. */
+        var daysEl = document.getElementById('bkDays');
+        var monthLabelEl = document.getElementById('bkMonthLabel');
+        var prevMonthBtn = document.getElementById('bkPrevMonth');
+        var nextMonthBtn = document.getElementById('bkNextMonth');
+        var DOW = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+        var MONTH_NAMES = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        var monthOffset = 0;
+        var today = new Date();
+        var tomorrow = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1);
 
-      bookingForm.addEventListener('submit', function (event) {
-        event.preventDefault();
-        if (!bookingForm.reportValidity()) return;
+        function monthDays(offset) {
+          var base = new Date(today.getFullYear(), today.getMonth() + offset, 1);
+          var year = base.getFullYear(), month = base.getMonth();
+          var daysInMonth = new Date(year, month + 1, 0).getDate();
+          var out = [];
+          for (var d = 1; d <= daysInMonth; d++) {
+            var dateObj = new Date(year, month, d);
+            if (dateObj < tomorrow) continue; // no booking today or in the past
+            if (dateObj.getDay() === 0) continue; // salon is closed Sundays
+            out.push({ dow: DOW[dateObj.getDay()], num: d, key: DOW[dateObj.getDay()] + ' ' + d + ' ' + MONTH_NAMES[month].slice(0, 3) });
+          }
+          return { year: year, month: month, days: out };
+        }
 
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Confirming…';
+        function renderDays() {
+          var data = monthDays(monthOffset);
+          monthLabelEl.textContent = MONTH_NAMES[data.month] + ' ' + data.year;
+          prevMonthBtn.disabled = monthOffset <= 0;
+          daysEl.innerHTML = '';
+          data.days.forEach(function (day, i) {
+            var chip = document.createElement('div');
+            var isActive = day.key === state.day || (!state.day && i === 0);
+            chip.className = 'bk-day-chip' + (isActive ? ' active' : '');
+            chip.innerHTML = '<span class="dc-dow">' + day.dow + '</span><span class="dc-num">' + day.num + '</span>';
+            chip.addEventListener('click', function () {
+              daysEl.querySelectorAll('.bk-day-chip').forEach(function (c) { c.classList.remove('active'); });
+              chip.classList.add('active');
+              state.day = day.key;
+            });
+            daysEl.appendChild(chip);
+            if (isActive) state.day = day.key;
+          });
+        }
 
-        window.setTimeout(function () {
-          submitBtn.textContent = 'Request Sent';
-          bookingConfirmation.classList.add('visible');
-        }, 700);
-      });
+        prevMonthBtn.addEventListener('click', function () {
+          if (monthOffset <= 0) return;
+          monthOffset -= 1;
+          renderDays();
+        });
+        nextMonthBtn.addEventListener('click', function () {
+          monthOffset += 1;
+          renderDays();
+        });
+
+        renderDays();
+
+        document.getElementById('bkTimes').querySelectorAll('.bk-time-chip').forEach(function (t) {
+          t.addEventListener('click', function () {
+            document.getElementById('bkTimes').querySelectorAll('.bk-time-chip').forEach(function (c) { c.classList.remove('active'); });
+            t.classList.add('active');
+            state.time = t.dataset.time;
+          });
+        });
+
+        /* -- Step 3: details ------------------------------------------------ */
+        var nameInput = document.getElementById('bkName');
+        var emailInput = document.getElementById('bkEmail');
+        var phoneInput = document.getElementById('bkPhone');
+        var stylistSelect = document.getElementById('bkStylist');
+        var fieldError = document.getElementById('bkFieldError');
+
+        nameInput.addEventListener('input', function () { state.name = nameInput.value; });
+        emailInput.addEventListener('input', function () { state.email = emailInput.value; });
+        phoneInput.addEventListener('input', function () { state.phone = phoneInput.value; });
+        stylistSelect.addEventListener('change', function () { state.stylist = stylistSelect.value; });
+
+        function validateDetails() {
+          var emailOk = /\S+@\S+\.\S+/.test(state.email);
+          var ok = state.name.trim().length > 0 && emailOk;
+          fieldError.classList.toggle('visible', !ok);
+          return ok;
+        }
+
+        /* -- Step 4: confirm -------------------------------------------------- */
+        function fillConfirm() {
+          var tab = currentTab();
+          var usableTiers = tab.tiers.filter(function (t, i) { var p = tab.prices[i]; return p && p !== '—'; });
+          var tierLabel = usableTiers[state.tierIndex] || usableTiers[0] || '';
+          document.getElementById('bkConfService').textContent = tab.name;
+          document.getElementById('bkConfTier').textContent = (tierLabel && tierLabel !== '') ? tierLabel : 'Standard';
+          document.getElementById('bkConfDay').textContent = state.day;
+          document.getElementById('bkConfTime').textContent = state.time;
+          document.getElementById('bkConfStylist').textContent = state.stylist;
+          document.getElementById('bkConfName').textContent = state.name || '—';
+          document.getElementById('bkConfPrice').textContent = priceEl.textContent;
+        }
+
+        var submitBtn = document.getElementById('bkSubmitBtn');
+        var confirmation = document.getElementById('bkConfirmation');
+        submitBtn.addEventListener('click', function () {
+          submitBtn.disabled = true;
+          submitBtn.textContent = 'Confirming…';
+          window.setTimeout(function () {
+            submitBtn.textContent = 'Request Sent';
+            confirmation.classList.add('visible');
+          }, 700);
+        });
+
+        lockPanelsHeight();
+        var resizeTimer;
+        window.addEventListener('resize', function () {
+          window.clearTimeout(resizeTimer);
+          resizeTimer = window.setTimeout(lockPanelsHeight, 200);
+        });
+      })();
 
       /* -- Mobile-only: gallery cards slide in from the right as each takes over the pinned stack -- */
       (function initGalleryMobileSlideReveal() {
@@ -4171,162 +4469,122 @@
         var servicesData = [
           {
             id: '01',
-            catCode: 'HAIR / STYLING',
-            categoryTag: 'STYLING & TEXTURE',
-            title: 'Hair Styling',
-            subtitle: 'SERVICE 01 — SIGNATURE ATELIER',
-            desc: 'Signature styling tailored to your hair type, texture and personal look. From effortless everyday waves to red-carpet finishes.',
-            duration: '60–90 MIN',
-            priceFrom: '$85',
+            title: 'Hair Cuts & Styling',
+            desc: 'Precision cuts and blow waves, tailored to you.',
+            duration: 'VARIES',
+            priceFrom: 'from $25',
             availability: 'AVAILABLE',
-            booking: 'RECOMMENDED',
-            status: 'APPOINTMENTS AVAILABLE',
-            img: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?q=80&w=1200&auto=format&fit=crop',
+            img: 'https://salonone.co.nz/wp-content/uploads/2025/03/Haircuts.jpg',
+            slug: 'cuts',
             treatments: [
-              { name: 'Blow Wave', dur: '45 MIN', price: '$65' },
-              { name: 'Event Styling', dur: '60 MIN', price: '$95' },
-              { name: 'Curls & Waves', dur: '45 MIN', price: '$75' },
-              { name: 'Upstyle Atelier', dur: '75 MIN', price: '$120' }
+              { name: 'Female Cut & Dry', price: '$90' },
+              { name: 'Male Cut', price: '$50' },
+              { name: '1st Visit Haircut', price: '$110' }
             ]
           },
           {
             id: '02',
-            catCode: 'HAIR / COLOUR',
-            categoryTag: 'COLOUR & BALAYAGE',
             title: 'Hair Colour',
-            subtitle: 'SERVICE 02 — DIMENSIONAL ARTISTRY',
-            desc: 'Dimensional balayage, bespoke foil artistry, and high-shine glossing designed for luminous depth, natural growth, and vibrant longevity.',
-            duration: '90–150 MIN',
-            priceFrom: '$140',
+            desc: 'Foils, tints, and low-maintenance colour artistry.',
+            duration: 'VARIES',
+            priceFrom: 'from $50',
             availability: 'AVAILABLE',
-            booking: 'ESSENTIAL',
-            status: 'APPOINTMENTS AVAILABLE',
-            img: 'https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?q=80&w=1200&auto=format&fit=crop',
+            img: 'https://salonone.co.nz/wp-content/uploads/2025/03/Hair-Colouring.jpg',
+            slug: 'colour',
             treatments: [
-              { name: 'Half Head Foils', dur: '90 MIN', price: '$160' },
-              { name: 'Full Balayage Atelier', dur: '150 MIN', price: '$245' },
-              { name: 'Global Colour & Gloss', dur: '75 MIN', price: '$140' },
-              { name: 'Toner & Bond Repair', dur: '45 MIN', price: '$85' }
+              { name: 'Full Head Foils — Short', price: '$151' },
+              { name: 'Re-touch (Root)', price: '$87' },
+              { name: 'Toner 30gm / Gloss Colour', price: '$65' }
             ]
           },
           {
             id: '03',
-            catCode: 'HAIR / CUT',
-            categoryTag: 'PRECISION & SHAPE',
-            title: 'Cut & Finish',
-            subtitle: 'SERVICE 03 — ARCHITECTURAL CUTTING',
-            desc: 'Architectural precision cutting crafted to complement your facial contours, hair density, and effortless daily routine.',
-            duration: '45–60 MIN',
-            priceFrom: '$85',
+            title: 'Hair Treatments',
+            desc: 'Restore, protect, and transform, treatment by treatment.',
+            duration: 'VARIES',
+            priceFrom: 'from $35',
             availability: 'AVAILABLE',
-            booking: 'RECOMMENDED',
-            status: 'APPOINTMENTS AVAILABLE',
-            img: 'https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?q=80&w=1200&auto=format&fit=crop',
+            img: 'https://salonone.co.nz/wp-content/uploads/2025/08/SP-spray-luxury-triple-treatment.jpg',
+            slug: 'treatments',
             treatments: [
-              { name: 'Senior Stylist Cut & Blow', dur: '60 MIN', price: '$95' },
-              { name: 'Re-Style & Sculpt', dur: '75 MIN', price: '$115' },
-              { name: 'Express Dry Cut', dur: '30 MIN', price: '$65' },
-              { name: 'Luxury Botanical Treatment & Cut', dur: '75 MIN', price: '$135' }
+              { name: 'SP Spray Luxury Triple Treatment', price: '$70' },
+              { name: 'Nioxin Dermabrasion Treatment', price: '$70' },
+              { name: 'Toner Treatment', price: '$35' }
             ]
           },
           {
             id: '04',
-            catCode: 'SKIN / RADIANCE',
-            categoryTag: 'SKINCARE & RADIANCE',
-            title: 'Facials & Glow',
-            subtitle: 'SERVICE 04 — CELLULAR BOTANICALS',
-            desc: 'Clinical-grade botanical facials and lymphatic drainage therapies engineered to restore cellular luminosity and moisture equilibrium.',
-            duration: '60–75 MIN',
-            priceFrom: '$110',
+            title: 'Grey Blending & Balayage',
+            desc: 'Seamless grey blending and lived-in colour packages.',
+            duration: 'VARIES',
+            priceFrom: 'from $150',
             availability: 'AVAILABLE',
-            booking: 'RECOMMENDED',
-            status: 'APPOINTMENTS AVAILABLE',
-            img: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?q=80&w=1200&auto=format&fit=crop',
+            img: 'https://salonone.co.nz/wp-content/uploads/2026/04/Grey-hair-packages-2.jpg',
+            slug: 'sets',
             treatments: [
-              { name: 'Cellular Radiance Glow', dur: '60 MIN', price: '$130' },
-              { name: 'Deep Hydra-Infusion', dur: '75 MIN', price: '$165' },
-              { name: 'Enzyme Peel & Sculpt', dur: '45 MIN', price: '$110' },
-              { name: 'Luxury Collagen Boost', dur: '90 MIN', price: '$195' }
+              { name: 'T-Section Grey Blending Foils + Toner + Blow Wave', price: '$250' },
+              { name: 'Grey Blending Root Melt & Blow Wave Package', price: '$150' },
+              { name: 'Balayage / Lived-In Blonde & Brunette Package', price: '$360' }
             ]
           },
           {
             id: '05',
-            catCode: 'NAILS / ATELIER',
-            categoryTag: 'MANICURE & PEDICURE',
-            title: 'Nails & Pedicures',
-            subtitle: 'SERVICE 05 — PRECISION COUTURE',
-            desc: 'Precision Russian dry manicures, BIAB strengthening overlays, and restorative spa pedicures with non-toxic luxury lacquers.',
-            duration: '45–75 MIN',
-            priceFrom: '$55',
+            title: 'Eyes & Brows',
+            desc: 'Lash lifts, tints, and brow shaping.',
+            duration: 'VARIES',
+            priceFrom: 'from $27',
             availability: 'AVAILABLE',
-            booking: 'RECOMMENDED',
-            status: 'APPOINTMENTS AVAILABLE',
-            img: 'https://images.unsplash.com/photo-1632345031435-8727f6897d53?q=80&w=1200&auto=format&fit=crop',
+            img: 'https://salonone.co.nz/wp-content/uploads/2025/06/Eyes-Brows-1-e1749997730879.jpg',
+            slug: 'eyes',
             treatments: [
-              { name: 'BIAB Builder Gel Manicure', dur: '60 MIN', price: '$85' },
-              { name: 'Luxury Spa Pedicure', dur: '75 MIN', price: '$95' },
-              { name: 'Express Gel Polish', dur: '30 MIN', price: '$55' },
-              { name: 'Artisan Nail Art & Sculpt', dur: '90 MIN', price: '$120' }
+              { name: 'Eyebrow Tint & Shape', price: '$40' },
+              { name: 'Eye Lash Lift w/ Tint', price: '$99' },
+              { name: 'Brow Lamination — 45 mins', price: '$99' }
             ]
           },
           {
             id: '06',
-            catCode: 'EYES / DEFINITION',
-            categoryTag: 'DEFINITION & TINT',
-            title: 'Brows & Lashes',
-            subtitle: 'SERVICE 06 — ARCHITECTURE & LIFT',
-            desc: 'High-definition brow architecture, customized hybrid henna tints, and keratin lash lift infusions for effortless natural expression.',
-            duration: '30–60 MIN',
-            priceFrom: '$45',
+            title: 'Nails & Pedicures',
+            desc: 'With Hannah, our resident nail artist.',
+            duration: 'VARIES',
+            priceFrom: 'Ask in salon',
             availability: 'AVAILABLE',
-            booking: 'AVAILABLE TODAY',
-            status: 'APPOINTMENTS AVAILABLE',
-            img: 'https://images.unsplash.com/photo-1583001931096-959e9a1a6223?q=80&w=1200&auto=format&fit=crop',
+            img: 'https://salonone.co.nz/wp-content/uploads/2025/06/Manicure-1.jpg',
+            slug: 'nails',
             treatments: [
-              { name: 'Keratin Lash Lift & Tint', dur: '60 MIN', price: '$95' },
-              { name: 'Hybrid Brow Sculpt & Tint', dur: '45 MIN', price: '$65' },
-              { name: 'Brow Lamination Atelier', dur: '45 MIN', price: '$80' },
-              { name: 'Signature Eye Combo', dur: '60 MIN', price: '$110' }
+              { name: 'Indulgent Manicure', price: 'Ask in salon' },
+              { name: 'Gel Nail Polish', price: 'Ask in salon' },
+              { name: 'Nail Art', price: 'Ask in salon' }
             ]
           },
           {
             id: '07',
-            catCode: 'BEAUTY / EDITORIAL',
-            categoryTag: 'EDITORIAL & OCCASION',
-            title: 'Makeup Artistry',
-            subtitle: 'SERVICE 07 — RED CARPET GLAM',
-            desc: 'Flawless event and red-carpet makeup artistry utilizing skin-first preparation techniques and HD camera-ready formulation.',
-            duration: '60–90 MIN',
-            priceFrom: '$120',
+            title: 'Facials & Beauty Packages',
+            desc: 'Aspect skincare facials, peels, and pamper packages.',
+            duration: 'VARIES',
+            priceFrom: 'from $60',
             availability: 'AVAILABLE',
-            booking: 'RECOMMENDED',
-            status: 'APPOINTMENTS AVAILABLE',
-            img: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?q=80&w=1200&auto=format&fit=crop',
+            img: 'https://salonone.co.nz/wp-content/uploads/2025/03/Beauty-Facial-e1742389647573.jpg',
+            slug: 'facials',
             treatments: [
-              { name: 'Special Occasion Glam', dur: '60 MIN', price: '$120' },
-              { name: 'Editorial Soft Glam & Lashes', dur: '75 MIN', price: '$145' },
-              { name: 'Express Glow & Contour', dur: '45 MIN', price: '$90' },
-              { name: 'One-on-One Artistry Masterclass', dur: '90 MIN', price: '$180' }
+              { name: 'Fresh Facial — 75 mins', price: '$120', slug: 'beauty-packages' },
+              { name: 'Smooth It Out Package', price: '$160', slug: 'beauty-packages' },
+              { name: 'Eyeworks Package — 75 mins', price: '$180', slug: 'beauty-packages' }
             ]
           },
           {
             id: '08',
-            catCode: 'BRIDAL / COIFFURE',
-            categoryTag: 'COIFFURE & ATELIER',
-            title: 'Bridal Atelier',
-            subtitle: 'SERVICE 08 — COUTURE BRIDAL',
-            desc: 'Comprehensive wedding-day coiffure, bridal makeup trials, and bespoke entourage packages in our private salon suite or on location.',
-            duration: 'CONSULTATION',
-            priceFrom: '$190',
-            availability: 'LIMITED SLOTS',
-            booking: 'ADVANCE BOOKING',
-            status: 'APPOINTMENTS AVAILABLE',
-            img: 'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1200&auto=format&fit=crop',
+            title: 'Wedding Hair & Makeup',
+            desc: 'Bespoke bridal hair and makeup for your big day.',
+            duration: 'VARIES',
+            priceFrom: 'from $100',
+            availability: 'AVAILABLE',
+            img: 'https://salonone.co.nz/wp-content/uploads/2025/07/Wedding-Hair-Makeup-e1752405359315.jpg',
+            slug: 'wedding-hair',
             treatments: [
-              { name: 'Bridal Hair & Makeup Trial', dur: '120 MIN', price: '$220' },
-              { name: 'Wedding Day Bride Atelier', dur: '150 MIN', price: '$320' },
-              { name: 'Bridesmaid Styling Package', dur: '75 MIN', price: '$165' },
-              { name: 'Mother of the Bride Finish', dur: '60 MIN', price: '$135' }
+              { name: 'Bride Hair Up, from', price: '$128' },
+              { name: 'Bridesmaid Hair Up, from', price: '$108' },
+              { name: 'Bride — Wedding Makeup', price: 'from $130', slug: 'wedding-makeup' }
             ]
           }
         ];
@@ -4349,24 +4607,7 @@
 
         var elVisualImg = document.getElementById('hudVisualImg');
         var elTreatmentList = document.getElementById('hudTreatmentList');
-
-        function bindTreatmentButtons() {
-          var bookBtns = elTreatmentList.querySelectorAll('.editorial-book-link');
-          bookBtns.forEach(function (btn) {
-            btn.addEventListener('click', function (e) {
-              var treatmentName = btn.getAttribute('data-treatment');
-              var serviceSelect = document.getElementById('serviceSelect');
-              if (serviceSelect && treatmentName) {
-                for (var i = 0; i < serviceSelect.options.length; i++) {
-                  if (serviceSelect.options[i].text.toLowerCase().indexOf(servicesData[activeIndex].title.split(' ')[0].toLowerCase()) !== -1) {
-                    serviceSelect.selectedIndex = i;
-                    break;
-                  }
-                }
-              }
-            });
-          });
-        }
+        var elPriceListBtn = document.getElementById('hudPriceListBtn');
 
         function renderService(idx) {
           if (idx < 0 || idx >= servicesData.length) return;
@@ -4392,36 +4633,49 @@
           if (elMetricDuration) elMetricDuration.textContent = data.duration;
           if (elMetricPrice) elMetricPrice.textContent = data.priceFrom;
           if (elMetricAvailability) elMetricAvailability.textContent = data.availability;
+          if (elPriceListBtn) elPriceListBtn.href = 'services.html#' + data.slug;
 
-          // Update image with soft crossfade
+          // Update image with soft crossfade. On first render the static
+          // markup already holds category 0's image (so the page shows a
+          // real photo even before JS runs) — setting .src to that same
+          // value triggers no new network request, so an onload handler
+          // attached afterwards would never fire and the dimmed opacity
+          // below would get stuck. Only run the fade when the src actually
+          // changes; otherwise just ensure it's fully visible.
           if (elVisualImg && data.img) {
-            elVisualImg.style.opacity = '0.4';
-            elVisualImg.src = data.img;
-            elVisualImg.onload = function () {
+            if (elVisualImg.getAttribute('src') !== data.img) {
+              elVisualImg.style.opacity = '0.4';
+              elVisualImg.src = data.img;
+              elVisualImg.onload = function () {
+                elVisualImg.style.opacity = '1';
+              };
+            } else {
               elVisualImg.style.opacity = '1';
-            };
+            }
           }
 
-          // Render Treatment hairline rows
+          // Render Treatment hairline rows. Each "Details" link targets the
+          // exact matching row on services.html — a query param carries the
+          // service name so that page can open its category and highlight
+          // that specific row, rather than just landing on the category.
           if (elTreatmentList && data.treatments) {
             var html = '';
             data.treatments.forEach(function (t) {
+              var targetSlug = t.slug || data.slug;
+              var href = 'services.html?svc=' + encodeURIComponent(t.name) + '#' + targetSlug;
               html += '<div class="editorial-treatment-line">' +
                 '<div class="editorial-treatment-name-wrap">' +
                   '<span class="editorial-treatment-name">' + t.name + '</span>' +
-                  '<span class="editorial-treatment-meta">' + t.dur + ' · SIGNATURE CRAFT</span>' +
                 '</div>' +
                 '<div class="editorial-treatment-right">' +
-                  '<span class="editorial-treatment-cost">' + t.price + '</span>' +
-                  '<a href="#booking" class="editorial-book-link" data-treatment="' + t.name + '">' +
-                    'Reserve' +
+                  '<a href="' + href + '" class="editorial-book-link">' +
+                    'Details' +
                     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>' +
                   '</a>' +
                 '</div>' +
               '</div>';
             });
             elTreatmentList.innerHTML = html;
-            bindTreatmentButtons();
           }
         }
 

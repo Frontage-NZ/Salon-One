@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Services — Salon One | Hair, Beauty & Bridal Styling, Tauranga</title>
+  <meta name="description" content="Every service at Salon One in full — real descriptions, real photos, and pricing for hair cuts, colour, treatments, waxing, facials, eyes, nails, wedding hair and makeup." />
+
+  <!-- Google Fonts: Playfair Display, Bodoni Moda, Cormorant Garamond, Plus Jakarta Sans & DM Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;0,6..96,700;0,6..96,800;1,6..96,400;1,6..96,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=DM+Mono:ital,wght@0,400;0,500;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ==========================================================================
+       DESIGN TOKENS & SYSTEM VARIABLES (matches index.html / shop.html)
+       ========================================================================== */
+    :root {
+      --bg-noir: #FFFFFF;
+      --bg-noir-elevated: #FFFFFF;
+      --bg-surface: rgba(18, 17, 21, 0.72);
+      --bg-surface-elevated: rgba(26, 25, 30, 0.78);
+      --bg-glass: rgba(10, 10, 11, 0.035);
+      --bg-glass-hover: rgba(10, 10, 11, 0.06);
+
+      --text-white: #141314;
+      --text-sand: #2A2825;
+      --text-muted: #6B655D;
+
+      --accent-gold: #E5C158;
+      --accent-gold-primary: #D4AF37;
+      --accent-gold-hover: #F0D479;
+      --accent-gold-subtle: rgba(229, 193, 88, 0.12);
+      --accent-rose: #D5B7A5;
+      --accent-warm-sand: #F5F0EA;
+
+      --border-glass: rgba(10, 10, 11, 0.10);
+      --border-glass-subtle: rgba(10, 10, 11, 0.08);
+      --border-gold: rgba(229, 193, 88, 0.35);
+      --border-focus: rgba(229, 193, 88, 0.6);
+
+      --font-display: 'Playfair Display', 'Bodoni Moda', 'Cormorant Garamond', Georgia, serif;
+      --font-serif: 'Playfair Display', 'Bodoni Moda', 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'DM Mono', 'JetBrains Mono', SFMono-Regular, Menlo, monospace;
+
+      --ease-editorial: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+      --radius-sm: 4px;
+      --radius-md: 12px;
+      --radius-lg: 20px;
+      --radius-full: 9999px;
+
+      --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.3);
+      --shadow-md: 0 12px 36px rgba(0, 0, 0, 0.5);
+      --shadow-lg: 0 24px 60px rgba(0, 0, 0, 0.7);
+    }
+
+    /* ==========================================================================
+       RESET & BASE STYLES
+       ========================================================================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--accent-warm-sand);
+      color: var(--text-sand);
+      font-family: var(--font-sans);
+      font-size: 16px;
+      line-height: 1.65;
+      letter-spacing: -0.01em;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    img { max-width: 100%; height: auto; display: block; }
+    a { color: inherit; text-decoration: none; transition: color 0.3s ease; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; outline: none; }
+    :focus-visible { outline: 2px solid var(--accent-gold); outline-offset: 3px; }
+
+    .headline-xl {
+      font-family: var(--font-serif);
+      font-size: clamp(3rem, 6.5vw, 4.8rem);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      font-weight: 300;
+      color: var(--text-white);
+      text-wrap: balance;
+    }
+
+    .headline-md {
+      font-family: var(--font-serif);
+      font-size: clamp(1.5rem, 2.5vw, 2.25rem);
+      line-height: 1.2;
+      color: var(--text-white);
+    }
+
+    .lead-text {
+      font-size: clamp(1rem, 1.2vw, 1.15rem);
+      color: var(--text-muted);
+      font-weight: 300;
+      line-height: 1.7;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1280px;
+      margin-inline: auto;
+      padding-inline: clamp(1.25rem, 4vw, 3rem);
+    }
+
+    .section-spacing { padding-block: clamp(5.5rem, 10vw, 9.5rem); position: relative; }
+
+    /* ==========================================================================
+       BUTTONS
+       ========================================================================== */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.75rem;
+      padding: 0.85rem 1.9rem; font-size: 0.84rem; font-weight: 600; letter-spacing: 0.06em;
+      border-radius: 9999px; transition: all 0.25s var(--ease-editorial); position: relative;
+      cursor: pointer; text-decoration: none; user-select: none; z-index: 1;
+    }
+    .btn-primary {
+      background: #141314; color: #FFFFFF; border: 1px solid rgba(20, 19, 20, 0.95);
+      box-shadow: inset 0 1px 2px rgba(255,255,255,0.12), inset 0 -3px 4px rgba(0,0,0,0.4), 0 4px 14px rgba(0,0,0,0.16), 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .btn-primary:hover {
+      background: #262527; color: #FFFFFF; transform: translateY(-1.5px);
+      box-shadow: inset 0 1px 3px rgba(255,255,255,0.16), inset 0 -3px 5px rgba(0,0,0,0.45), 0 7px 20px rgba(0,0,0,0.2), 0 2px 5px rgba(0,0,0,0.12);
+    }
+    .btn-primary:active { transform: translateY(1px); box-shadow: inset 0 3px 6px rgba(0,0,0,0.5), 0 2px 6px rgba(0,0,0,0.12); }
+    .btn-secondary {
+      background: rgba(10,10,11,0.03); color: #141314; border: 1px solid rgba(10,10,11,0.22);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      box-shadow: inset 0 1.5px 2px rgba(255,255,255,0.6), inset 0 -2px 4px rgba(0,0,0,0.03), 0 4px 14px rgba(0,0,0,0.05);
+    }
+    .btn-secondary:hover {
+      background: rgba(10,10,11,0.06); border-color: rgba(10,10,11,0.38); color: #141314; transform: translateY(-1.5px);
+      box-shadow: inset 0 2px 3px rgba(255,255,255,0.6), inset 0 -2.5px 5px rgba(0,0,0,0.05), 0 6px 18px rgba(0,0,0,0.08);
+    }
+    .btn-secondary:active { transform: translateY(1px); box-shadow: inset 0 3px 6px rgba(0,0,0,0.08), 0 2px 5px rgba(0,0,0,0.05); }
+
+    /* ==========================================================================
+       HEADER & NAVIGATION
+       ========================================================================== */
+    .header { position: fixed; top: 0; left: 0; width: 100%; z-index: 100; padding-block: 1.5rem; background: transparent; transition: all 0.4s var(--ease-editorial); }
+    .header.scrolled { padding-block: 1.1rem; background: rgba(255,255,255,0.85); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid var(--border-glass-subtle); }
+    .nav-container { display: flex; align-items: center; justify-content: space-between; }
+    .logo { font-family: var(--font-serif); font-size: clamp(1.3rem, 2.4vw, 1.6rem); letter-spacing: 0.12em; font-weight: 400; text-transform: uppercase; display: flex; align-items: center; gap: 0.5rem; white-space: nowrap; color: var(--text-white); }
+    .logo span { display: inline-block; width: 6px; height: 6px; background-color: var(--accent-gold); border-radius: 50%; }
+    .nav-links { display: flex; align-items: center; gap: 2.5rem; list-style: none; }
+    .nav-link { font-size: 0.875rem; font-weight: 400; letter-spacing: 0.05em; position: relative; padding-block: 0.25rem; color: rgba(10,10,11,0.82); text-shadow: none; }
+    .nav-link.active { color: var(--accent-gold); }
+    .nav-link::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1px; background-color: var(--accent-gold); transition: width 0.3s var(--ease-editorial); }
+    .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+    .nav-actions { display: flex; align-items: center; gap: 1.5rem; }
+    .menu-toggle { display: none; flex-direction: column; justify-content: center; gap: 6px; width: 32px; height: 32px; z-index: 101; }
+    .menu-toggle span { width: 100%; height: 1.5px; background-color: var(--text-white); transition: all 0.3s ease; transform-origin: center; }
+    .menu-toggle.active span:first-child { transform: translateY(4px) rotate(45deg); }
+    .menu-toggle.active span:last-child { transform: translateY(-3.5px) rotate(-45deg); }
+    .mobile-menu { position: fixed; inset: 0; background-color: rgba(255,255,255,0.97); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 1.75rem; z-index: 99; opacity: 0; pointer-events: none; transition: opacity 0.4s var(--ease-editorial); }
+    .mobile-menu.open { opacity: 1; pointer-events: auto; }
+    .mobile-menu .nav-link { font-size: 1.6rem; font-family: var(--font-serif); color: var(--text-white); text-shadow: none; }
+    @media (max-width: 900px) { .nav-links { display: none; } .menu-toggle { display: flex; } }
+
+    /* ==========================================================================
+       SERVICES HERO
+       ========================================================================== */
+    .price-hero {
+      position: relative;
+      overflow: hidden;
+      min-height: clamp(560px, 58vw, 720px);
+      display: flex;
+      align-items: flex-end;
+      text-align: center;
+    }
+    .price-hero-bg { position: absolute; inset: 0; z-index: 0; }
+    .price-hero-bg img { width: 100%; height: 100%; object-fit: cover; object-position: center 22%; }
+    .price-hero-scrim {
+      position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(to bottom, rgba(20,17,13,0.12) 0%, rgba(20,17,13,0.38) 45%, rgba(20,17,13,0.82) 100%);
+    }
+    .price-hero > .container { position: relative; z-index: 2; padding-top: clamp(7rem, 12vw, 9rem); padding-bottom: clamp(2.75rem, 5vw, 3.75rem); }
+    .price-hero-eyebrow {
+      display: inline-block; font-family: var(--font-sans); font-size: 0.78rem; font-weight: 600;
+      letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent-gold-hover); margin-bottom: 1.25rem;
+    }
+    .price-hero h1 { color: #FFFFFF; }
+    .price-hero p { max-width: 58ch; margin: 1.25rem auto 0; color: rgba(255,255,255,0.86); }
+    .price-hero p a { color: var(--accent-gold-hover); }
+    .price-hero-note {
+      margin-top: 1.5rem; display: block;
+      font-family: var(--font-sans); font-size: 0.82rem; font-weight: 400; font-style: italic; color: rgba(255,255,255,0.66);
+    }
+
+    /* ==========================================================================
+       FILTER BAR
+       ========================================================================== */
+    .price-toolbar {
+      padding-top: clamp(1.75rem, 3vw, 2.5rem);
+      padding-bottom: clamp(1.5rem, 2.5vw, 2rem);
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.25rem;
+    }
+    .price-search { position: relative; width: 100%; max-width: 340px; }
+    .price-search-bar {
+      display: flex; align-items: center; gap: 0.65rem; width: 100%; padding: 0.6rem 1rem;
+      background: #FFFFFF; border: 1px solid rgba(0,0,0,0.15); border-radius: var(--radius-sm);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06); transition: border-color 0.25s var(--ease-editorial), box-shadow 0.25s var(--ease-editorial);
+    }
+    .price-search-bar:focus-within { border-color: var(--accent-gold); box-shadow: 0 6px 22px rgba(0,0,0,0.08), 0 0 0 2px rgba(212,175,55,0.25); }
+    .price-search-bar svg { color: #333333; flex-shrink: 0; opacity: 0.8; }
+    .price-search-bar:focus-within svg { color: var(--accent-gold-primary); }
+    .price-search-input { width: 100%; background: transparent; border: none; outline: none; color: #111111; font-family: inherit; font-size: 0.9rem; font-weight: 500; }
+    .price-search-input::placeholder { color: #9A948A; font-weight: 400; }
+    .price-result-count { font-family: var(--font-sans); font-size: 0.82rem; color: var(--text-muted); white-space: nowrap; }
+
+    /* ==========================================================================
+       CATEGORY INDEX
+       ========================================================================== */
+    .price-index {
+      display: flex; flex-wrap: wrap; gap: 0.65rem 1rem;
+      padding-bottom: clamp(2.5rem, 5vw, 3.5rem); border-bottom: 1px solid var(--border-glass-subtle);
+    }
+    .price-index a {
+      font-size: 0.82rem; letter-spacing: 0.02em; color: var(--text-muted);
+      padding: 0.4rem 0; border-bottom: 1px solid transparent;
+    }
+    .price-index a:hover { color: var(--text-white); border-bottom-color: var(--border-glass); }
+    .price-index a::after { content: '·'; margin-left: 1rem; color: var(--border-glass); }
+    .price-index a:last-child::after { content: ''; }
+
+    /* ==========================================================================
+       SERVICE CATEGORIES
+       ========================================================================== */
+    .price-categories { padding-top: clamp(2.5rem, 5vw, 3.5rem); display: flex; flex-direction: column; gap: 1.1rem; }
+
+    .price-category {
+      scroll-margin-top: 6.5rem;
+      background: #FFFFFF;
+      border-radius: var(--radius-md);
+      box-shadow: 0 2px 4px rgba(20,17,13,0.03), 0 10px 28px rgba(20,17,13,0.05);
+    }
+
+    .price-category-toggle {
+      width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;
+      padding: clamp(1.35rem, 2.6vw, 1.75rem) clamp(1.5rem, 3vw, 2.25rem); text-align: left; background: none; border: none; cursor: pointer;
+    }
+    .price-category-toggle-left { display: flex; align-items: baseline; gap: 1rem; flex-wrap: wrap; }
+    .price-category-toggle h2 { font-family: var(--font-serif); font-size: clamp(1.4rem, 2.2vw, 1.85rem); font-weight: 400; color: var(--text-white); }
+    .price-category-count { font-family: var(--font-sans); font-size: 0.8rem; color: var(--text-muted); white-space: nowrap; }
+    .price-category-chevron { flex-shrink: 0; color: var(--text-muted); transition: transform 0.3s var(--ease-editorial), color 0.25s ease; }
+    .price-category-toggle:hover .price-category-chevron { color: var(--accent-gold-primary); }
+    .price-category-toggle:hover h2 { color: var(--accent-gold-primary); }
+    .price-category.is-open .price-category-chevron { transform: rotate(180deg); color: var(--accent-gold-primary); }
+
+    .price-category-body-wrap { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.4s var(--ease-editorial); }
+    .price-category.is-open .price-category-body-wrap { grid-template-rows: 1fr; }
+    .price-category-body { overflow: hidden; min-height: 0; }
+    .price-category-body-inner { padding: 0 clamp(1.5rem, 3vw, 2.25rem) clamp(1.75rem, 3.5vw, 2.5rem); }
+
+    .price-category-note { max-width: 62ch; color: var(--text-muted); font-size: 0.88rem; line-height: 1.6; margin-bottom: 1.75rem; }
+
+    /* -- Real photos & descriptive copy, sitting above the price table -- */
+    .service-photos { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 1.5rem; }
+    .service-photos img { height: 148px; width: auto; border-radius: var(--radius-sm); object-fit: cover; }
+    .service-copy { max-width: 66ch; margin-bottom: 2rem; padding-bottom: 1.75rem; border-bottom: 1px solid var(--border-glass-subtle); }
+    .service-copy h3 { font-family: var(--font-serif); font-size: 1.15rem; font-weight: 500; color: var(--text-white); margin: 1.1rem 0 0.4rem; }
+    .service-copy h3:first-child { margin-top: 0; }
+    .service-copy p { font-size: 0.92rem; line-height: 1.65; color: var(--text-sand); margin-bottom: 0.7rem; }
+    .service-copy p em { color: var(--text-muted); font-style: italic; }
+    .service-copy ul { margin: 0.4rem 0 0.8rem 1.15rem; }
+    .service-copy li { font-size: 0.9rem; line-height: 1.6; margin-bottom: 0.3rem; color: var(--text-sand); }
+
+    .tier-legend {
+      display: grid; grid-template-columns: 1fr repeat(4, 108px); gap: 0 1rem;
+      padding: 0 0 0.6rem; margin-top: 1.5rem;
+      font-family: var(--font-sans); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--text-muted); border-bottom: 1px solid var(--border-glass);
+    }
+    .tier-legend span:not(:first-child) { text-align: right; }
+
+    .price-row { display: grid; grid-template-columns: 1fr repeat(4, 108px); gap: 0 1rem; padding: 0.9rem 0; border-bottom: 1px solid var(--border-glass-subtle); align-items: baseline; transition: background 1.8s var(--ease-editorial), box-shadow 1.8s var(--ease-editorial); }
+    .price-row:last-child { border-bottom: none; }
+    .price-row-name { font-size: 0.95rem; color: var(--text-sand); }
+    .price-row-detail { display: block; font-size: 0.78rem; color: var(--text-muted); margin-top: 0.2rem; font-weight: 300; }
+    .price-tiers { display: contents; }
+    .price-cell { font-family: var(--font-sans); font-variant-numeric: tabular-nums; font-weight: 600; font-size: 0.92rem; text-align: right; color: var(--text-sand); }
+    .price-cell.empty { color: #C9C3B8; }
+    .tier-label-inline { display: none; }
+
+    /* Selectable prices: click one to send that exact service + tier to
+       the booking section on the homepage. */
+    .price-cell.selectable {
+      cursor: pointer; border-radius: var(--radius-sm); padding: 0.2rem 0.45rem; margin: -0.2rem -0.45rem;
+      border: 1px solid transparent; transition: background 0.2s var(--ease-editorial), border-color 0.2s var(--ease-editorial), color 0.2s var(--ease-editorial);
+    }
+    .price-cell.selectable:hover, .price-cell.selectable:focus-visible {
+      background: var(--accent-gold-subtle); border-color: var(--border-gold); color: var(--text-white);
+    }
+    .price-cell.selectable.is-picked {
+      background: #141314; border-color: #141314; color: #FFFFFF;
+    }
+    .price-row.flat .price-cell.selectable:hover, .price-row.flat .price-cell.selectable:focus-visible {
+      color: var(--accent-gold-primary);
+    }
+    .price-row.flat .price-cell.selectable.is-picked { color: #FFFFFF; }
+
+    .price-row.flat { grid-template-columns: 1fr auto; }
+    .price-row.flat .price-cell { font-weight: 500; color: var(--accent-gold-primary); }
+
+    .price-row.pair { grid-template-columns: 1fr 108px 108px; }
+
+    .price-row.hidden, .price-category.hidden { display: none; }
+
+    /* Deep-link highlight: briefly washes the targeted row in gold when
+       arriving from a homepage "Details" link, then fades back to normal
+       (transition lives on the base .price-row rule so it eases both ways). */
+    .price-row.is-highlighted {
+      background: var(--accent-gold-subtle);
+      box-shadow: inset 3px 0 0 var(--accent-gold-primary);
+    }
+
+    @media (max-width: 720px) {
+      .price-row:not(.flat):not(.pair) { display: block; padding-block: 1rem; }
+      .price-row:not(.flat):not(.pair) .price-tiers { display: flex; flex-wrap: wrap; gap: 0.5rem 1.25rem; margin-top: 0.55rem; }
+      .price-row:not(.flat):not(.pair) .price-cell { text-align: left; display: flex; flex-direction: column; gap: 0.15rem; }
+      .tier-label-inline {
+        display: block; font-family: var(--font-sans); font-size: 0.66rem; letter-spacing: 0.05em;
+        text-transform: uppercase; color: var(--text-muted); font-weight: 600;
+      }
+      .tier-legend { display: none; }
+      .price-row.pair { grid-template-columns: 1fr 72px 72px; }
+      .service-photos img { height: 110px; }
+    }
+
+    /* ==========================================================================
+       CTA PANEL
+       ========================================================================== */
+    .shop-cta-panel {
+      max-width: 720px; margin: 0 auto; text-align: center;
+      padding: clamp(2.5rem, 5vw, 4rem); background: #141314; border-radius: var(--radius-lg);
+    }
+    .shop-cta-panel h2 { color: #FFFFFF; }
+    .shop-cta-panel p { margin-top: 0.75rem; color: rgba(255,255,255,0.62); }
+    .shop-cta-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-top: 2rem; }
+    .shop-cta-actions .btn-secondary {
+      background: transparent; color: #FFFFFF; border-color: rgba(255,255,255,0.28); backdrop-filter: none; box-shadow: none;
+    }
+    .shop-cta-actions .btn-secondary:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.5); color: #FFFFFF; box-shadow: none; }
+
+    /* ==========================================================================
+       FOOTER
+       ========================================================================== */
+    .site-footer { padding-block: clamp(4rem, 8vw, 6rem) 2.5rem; border-top: 1px solid var(--border-glass-subtle); }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 4rem; margin-bottom: 5rem; }
+    .footer-brand p { color: var(--text-muted); max-width: 320px; margin-top: 1.25rem; font-size: 0.9rem; font-weight: 300; }
+    .footer-col-title { font-family: var(--font-serif); font-size: 1.25rem; letter-spacing: 0.05em; margin-bottom: 1.5rem; color: var(--text-white); }
+    .footer-list { list-style: none; display: flex; flex-direction: column; gap: 0.85rem; font-size: 0.9rem; color: var(--text-muted); }
+    .footer-list a:hover { color: var(--accent-gold); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 2rem; border-top: 1px solid var(--border-glass-subtle); font-size: 0.8rem; color: #8C867E; gap: 1.5rem; flex-wrap: wrap; }
+    .social-links { display: flex; gap: 1.5rem; }
+    .social-link { color: var(--text-muted); transition: color 0.3s ease, transform 0.3s ease; display: inline-flex; }
+    .social-link:hover { color: var(--accent-gold); transform: translateY(-2px); }
+    @media (max-width: 768px) { .footer-grid { grid-template-columns: 1fr; gap: 2.5rem; } .footer-bottom { flex-direction: column; gap: 1.5rem; text-align: center; } }
+
+    /* ==========================================================================
+       SCROLL ANIMATIONS & SCROLL-TO-TOP
+       ========================================================================== */
+    .reveal-on-scroll { opacity: 0; transform: translateY(30px); transition: opacity 0.8s var(--ease-editorial), transform 0.8s var(--ease-editorial); will-change: opacity, transform; }
+    .reveal-on-scroll.is-revealed { opacity: 1; transform: translateY(0); }
+
+    .scroll-to-top-btn {
+      position: fixed; bottom: 2rem; right: 2rem; width: 48px; height: 48px; border-radius: 50%;
+      background: rgba(18,17,21,0.85); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(229,193,88,0.35); color: var(--accent-gold); display: flex; align-items: center; justify-content: center;
+      cursor: pointer; z-index: 99; opacity: 0; visibility: hidden; transform: translateY(16px) scale(0.9);
+      transition: opacity 0.35s cubic-bezier(0.16,1,0.3,1), transform 0.35s cubic-bezier(0.16,1,0.3,1), background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    }
+    .scroll-to-top-btn.is-visible { opacity: 1; visibility: visible; transform: translateY(0) scale(1); }
+    .scroll-to-top-btn:hover { background: rgba(229,193,88,0.2); border-color: var(--accent-gold); color: #FFFFFF; transform: translateY(-3px) scale(1.05); box-shadow: 0 12px 36px rgba(229,193,88,0.3), 0 4px 16px rgba(0,0,0,0.6); }
+    .scroll-to-top-btn:active { transform: translateY(0) scale(0.95); }
+    .scroll-to-top-btn svg { transition: transform 0.25s ease; }
+    .scroll-to-top-btn:hover svg { transform: translateY(-2px); }
+    @media (max-width: 768px) { .scroll-to-top-btn { bottom: 1.25rem; right: 1.25rem; width: 44px; height: 44px; } }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================================================
+       1. NAVIGATION
+       ========================================================================== -->
+  <header class="header" id="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="logo">SALON ONE<span></span></a>
+      <ul class="nav-links">
+        <li><a href="index.html#gallery" class="nav-link">Gallery</a></li>
+        <li><a href="index.html#product" class="nav-link">Product</a></li>
+        <li><a href="shop.html" class="nav-link">Shop</a></li>
+        <li><a href="index.html#services" class="nav-link active">Services</a></li>
+        <li><a href="index.html#philosophy" class="nav-link">About</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="index.html#booking" class="btn btn-primary">Book Appointment</a>
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobileMenu">
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Navigation Drawer -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html#gallery" class="nav-link mobile-link">Gallery</a>
+    <a href="index.html#product" class="nav-link mobile-link">Product</a>
+    <a href="shop.html" class="nav-link mobile-link">Shop</a>
+    <a href="index.html#services" class="nav-link mobile-link active">Services</a>
+    <a href="index.html#philosophy" class="nav-link mobile-link">About</a>
+    <a href="index.html#booking" class="btn btn-primary mobile-link" style="margin-top: 1rem;">Book Appointment</a>
+  </div>
+
+  <main>
+    <!-- ==========================================================================
+         SERVICES HERO
+         ========================================================================== -->
+    <section class="price-hero">
+      <div class="price-hero-bg" aria-hidden="true">
+        <img src="https://res.cloudinary.com/cskamhz5/image/upload/v1787919850/vecteezy_beautiful-woman-model-with-shiny-and-long-wavy-hair-beauty_34087120.jpg" alt="" loading="eager" />
+      </div>
+      <div class="price-hero-scrim" aria-hidden="true"></div>
+      <div class="container">
+        <span class="price-hero-eyebrow reveal-on-scroll">Hair &amp; Beauty</span>
+        <h1 class="headline-xl reveal-on-scroll delay-100">Our Services</h1>
+        <p class="lead-text reveal-on-scroll delay-100">
+          Every treatment we offer, in full — real descriptions, real results, and pricing across our team. Open a category below, or search for something specific.
+        </p>
+        <span class="price-hero-note reveal-on-scroll delay-100">Some services need a quick consultation first — we'll always talk it through with you before booking.</span>
+      </div>
+    </section>
+
+    <div class="container">
+      <!-- ==========================================================================
+           FILTER BAR
+           ========================================================================== -->
+      <div class="price-toolbar">
+        <div class="price-search">
+          <div class="price-search-bar">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" id="priceSearchInput" class="price-search-input" placeholder="Search services..." autocomplete="off" spellcheck="false" aria-label="Search services" />
+          </div>
+        </div>
+        <span class="price-result-count" id="priceResultCount"></span>
+      </div>
+
+      <!-- ==========================================================================
+           CATEGORY INDEX
+           ========================================================================== -->
+      <nav class="price-index reveal-on-scroll" id="priceIndex" aria-label="Jump to category"></nav>
+
+      <!-- ==========================================================================
+           SERVICE CATEGORIES (rendered from data below)
+           ========================================================================== -->
+      <div class="price-categories" id="priceCategories"></div>
+    </div>
+
+    <!-- ==========================================================================
+         BOOKING CTA
+         ========================================================================== -->
+    <section class="section-spacing">
+      <div class="container">
+        <div class="shop-cta-panel reveal-on-scroll">
+          <h2 class="headline-md">Ready to Book?</h2>
+          <p class="lead-text">
+            Not sure which service is right for you? Give us a call and we'll help you choose.
+          </p>
+          <div class="shop-cta-actions">
+            <a href="index.html#booking" class="btn btn-primary">Book an Appointment</a>
+            <a href="tel:+6475712183" class="btn btn-secondary">Call 07 571 2183</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==========================================================================
+       FOOTER
+       ========================================================================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+
+        <div class="footer-brand">
+          <a href="index.html" class="logo">
+            SALON ONE<span></span>
+          </a>
+          <p>
+            Salon One is Fraser Cove, Tauranga's destination for hairdressing, beauty therapy, and bridal styling — family-owned, using eco-friendly products in a warm, welcoming space.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">Salon Hours</h4>
+          <ul class="footer-list">
+            <li>Monday – Friday: 9:00am – 6:00pm</li>
+            <li>Saturday: 9:00am – 5:00pm</li>
+            <li>Sunday: Closed</li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">Location</h4>
+          <ul class="footer-list">
+            <li>229–247 Fraser Street</li>
+            <li>Fraser Cove, Tauranga 3112</li>
+            <li><a href="tel:+6475712183">07 571 2183</a></li>
+            <li><a href="mailto:thecove@salonone.co.nz">thecove@salonone.co.nz</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">Navigation</h4>
+          <ul class="footer-list">
+            <li><a href="index.html#gallery">Gallery</a></li>
+            <li><a href="index.html#product">Product</a></li>
+            <li><a href="shop.html">Shop &amp; Vouchers</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="index.html#philosophy">About</a></li>
+            <li><a href="index.html#team">Meet the Team</a></li>
+            <li><a href="index.html#booking">Book Now</a></li>
+            <li><a href="mailto:thecove@salonone.co.nz?subject=Careers%20Enquiry">Careers</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <span>&copy; <span id="currentYear">2026</span> Salon One. All rights reserved.</span>
+        <div class="social-links">
+          <a href="#" class="social-link" aria-label="Salon One on Facebook">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+          <a href="#" class="social-link" aria-label="Salon One on Instagram">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.75" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="#" class="social-link" aria-label="Salon One on Pinterest">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="12" cy="12" r="10"/><path d="M9.5 20c.5-2 1.5-6 1.5-6m0 0c.5 1 1.5 1.5 2.5 1.5 2.5 0 4-2 4-4.5 0-2-1.5-4-4.5-4-3.5 0-5.5 2.5-5.5 5 0 1.2.5 2 1 2.3"/></svg>
+          </a>
+          <a href="#" class="social-link" aria-label="Salon One on X">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M4 4l16 16M20 4L4 20"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Scroll to Top Arrow Button -->
+  <button id="scrollToTopBtn" class="scroll-to-top-btn" type="button" aria-label="Scroll to top" title="Back to top">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="12" y1="19" x2="12" y2="5"></line>
+      <polyline points="5 12 12 5 19 12"></polyline>
+    </svg>
+  </button>
+
+  <script src="services-data.js"></script>
+  <script>
+    (function () {
+      'use strict';
+
+      if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
+
+      /* -- Services data (TIERS, CATEGORIES) is loaded from services-data.js -- */
+
+      /* -- Render ---------------------------------------------------------- */
+      function priceCell(v, label) {
+        var empty = !v || v === '—';
+        var labelHtml = label ? '<b class="tier-label-inline">' + label + '</b>' : '';
+        var selectAttrs = empty ? '' : ' data-selectable="1" data-tier="' + (label || '') + '" data-price="' + v + '" tabindex="0" role="button"';
+        return '<span class="price-cell' + (empty ? ' empty' : ' selectable') + '"' + selectAttrs + '>' + labelHtml + (v || '—') + '</span>';
+      }
+
+      function esc(str) { return String(str).replace(/"/g, '&quot;'); }
+
+      function renderService(s) {
+        var nameHtml = '<div class="price-row-name">' + s.name + (s.detail ? '<span class="price-row-detail">' + s.detail + '</span>' : '') + '</div>';
+        var rowAttrs = ' data-name="' + s.name.toLowerCase() + '" data-service="' + esc(s.name) + '" data-detail="' + esc(s.detail || '') + '"';
+        if (s.flat) {
+          return '<div class="price-row flat"' + rowAttrs + '>' + nameHtml +
+            '<span class="price-cell selectable" data-selectable="1" data-tier="" data-price="' + s.flat + '" tabindex="0" role="button">' + s.flat + '</span></div>';
+        }
+        if (s.prices) {
+          var cells = s.prices.map(function (v, i) { return priceCell(v, TIERS[i]); }).join('');
+          return '<div class="price-row"' + rowAttrs + '>' + nameHtml + '<div class="price-tiers">' + cells + '</div></div>';
+        }
+        return '';
+      }
+
+      function renderPairService(s) {
+        var nameHtml = '<div class="price-row-name">' + s.name + (s.detail ? '<span class="price-row-detail">' + s.detail + '</span>' : '') + '</div>';
+        var rowAttrs = ' data-name="' + s.name.toLowerCase() + '" data-service="' + esc(s.name) + '" data-detail="' + esc(s.detail || '') + '"';
+        var cells = priceCell(s.pair[0], 'Stylist') + priceCell(s.pair[1], 'Senior');
+        return '<div class="price-row pair"' + rowAttrs + '>' + nameHtml + cells + '</div>';
+      }
+
+      function categoryCount(cat) {
+        return cat.services.length + (cat.pairServices ? cat.pairServices.length : 0);
+      }
+
+      function renderCategory(cat) {
+        var photos = cat.photos && cat.photos.length
+          ? '<div class="service-photos">' + cat.photos.map(function (p) { return '<img src="' + p.src + '" alt="' + p.alt + '" loading="lazy" />'; }).join('') + '</div>'
+          : '';
+        // Photos sit inside the copy block when both exist, so they read as
+        // one intro unit above the price table; standalone photos otherwise.
+        var mediaBlock = cat.copy ? ('<div class="service-copy">' + photos + cat.copy + '</div>') : photos;
+
+        var legend = cat.tiered !== false
+          ? '<div class="tier-legend"><span></span>' + TIERS.map(function (t) { return '<span>' + t + '</span>'; }).join('') + '</div>'
+          : '';
+        var body = cat.services.map(renderService).join('');
+        var second = '';
+        if (cat.pairServices) {
+          second = '<p class="price-category-note" style="margin-top:1.75rem;">' + cat.pairNote + '</p>' +
+            '<div class="tier-legend" style="grid-template-columns:1fr 108px 108px;"><span></span><span>Stylist</span><span>Senior</span></div>' +
+            cat.pairServices.map(renderPairService).join('');
+        }
+        var bodyId = 'cat-body-' + cat.slug;
+        return '<article class="price-category" id="' + cat.slug + '" data-cat="' + cat.slug + '" data-cat-name="' + esc(cat.name) + '">' +
+          '<button type="button" class="price-category-toggle" aria-expanded="false" aria-controls="' + bodyId + '">' +
+            '<span class="price-category-toggle-left"><h2>' + cat.name + '</h2><span class="price-category-count">' + categoryCount(cat) + ' services</span></span>' +
+            '<svg class="price-category-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>' +
+          '</button>' +
+          '<div class="price-category-body-wrap"><div class="price-category-body" id="' + bodyId + '"><div class="price-category-body-inner">' +
+            mediaBlock +
+            (cat.note ? '<p class="price-category-note">' + cat.note + '</p>' : '') +
+            legend + body + second +
+          '</div></div></div>' +
+          '</article>';
+      }
+
+      var categoriesEl = document.getElementById('priceCategories');
+      var indexEl = document.getElementById('priceIndex');
+      var countEl = document.getElementById('priceResultCount');
+      var searchEl = document.getElementById('priceSearchInput');
+
+      categoriesEl.innerHTML = CATEGORIES.map(renderCategory).join('');
+      indexEl.innerHTML = CATEGORIES.map(function (cat) {
+        return '<a href="#' + cat.slug + '">' + cat.name + '</a>';
+      }).join('');
+
+      var totalCount = CATEGORIES.reduce(function (sum, c) { return sum + categoryCount(c); }, 0);
+      countEl.textContent = totalCount + ' services';
+
+      /* -- Accordion: each category opens/closes independently ------------ */
+      function setCategoryOpen(catEl, open) {
+        catEl.classList.toggle('is-open', open);
+        catEl.querySelector('.price-category-toggle').setAttribute('aria-expanded', String(open));
+      }
+
+      categoriesEl.querySelectorAll('.price-category-toggle').forEach(function (toggle) {
+        toggle.addEventListener('click', function () {
+          var cat = toggle.closest('.price-category');
+          setCategoryOpen(cat, !cat.classList.contains('is-open'));
+        });
+      });
+
+      /* -- Selectable prices: click (or Enter/Space) any tier's price to
+         send that exact service + tier through to the booking section on
+         the homepage. Every row was built with the data attributes below,
+         so this one delegated handler covers all 115 services. ---------- */
+      var SELECTION_KEY = 'salonOneSelectedService';
+
+      function pickCell(cell) {
+        var row = cell.closest('.price-row');
+        var cat = cell.closest('.price-category');
+        if (!row || !cat) return;
+
+        var otherCells = row.querySelectorAll('.price-cell.selectable');
+        var tiers = [], prices = [];
+        otherCells.forEach(function (c) {
+          tiers.push(c.getAttribute('data-tier') || '');
+          prices.push(c.getAttribute('data-price') || '');
+        });
+
+        var selection = {
+          category: cat.getAttribute('data-cat-name') || '',
+          categorySlug: cat.id,
+          service: row.getAttribute('data-service') || '',
+          detail: row.getAttribute('data-detail') || '',
+          tiers: tiers,
+          prices: prices,
+          selectedTier: cell.getAttribute('data-tier') || '',
+          selectedPrice: cell.getAttribute('data-price') || '',
+          savedAt: Date.now()
+        };
+        try { localStorage.setItem(SELECTION_KEY, JSON.stringify(selection)); } catch (e) {}
+
+        otherCells.forEach(function (c) { c.classList.remove('is-picked'); });
+        cell.classList.add('is-picked');
+
+        setTimeout(function () {
+          window.location.href = 'index.html#booking';
+        }, 180);
+      }
+
+      categoriesEl.addEventListener('click', function (e) {
+        var cell = e.target.closest('.price-cell.selectable');
+        if (cell) pickCell(cell);
+      });
+      categoriesEl.addEventListener('keydown', function (e) {
+        if (e.key !== 'Enter' && e.key !== ' ') return;
+        var cell = e.target.closest('.price-cell.selectable');
+        if (cell) { e.preventDefault(); pickCell(cell); }
+      });
+
+      /* -- Search: filters rows and auto-opens categories with matches ---- */
+      searchEl.addEventListener('input', function () {
+        var q = searchEl.value.trim().toLowerCase();
+        var visible = 0;
+        document.querySelectorAll('.price-category').forEach(function (cat) {
+          var anyVisible = false;
+          cat.querySelectorAll('.price-row').forEach(function (row) {
+            var match = !q || row.dataset.name.indexOf(q) !== -1;
+            row.classList.toggle('hidden', !match);
+            if (match) { anyVisible = true; visible++; }
+          });
+          cat.classList.toggle('hidden', !anyVisible);
+          setCategoryOpen(cat, q ? anyVisible : false);
+        });
+        countEl.textContent = q ? visible + ' matching' : totalCount + ' services';
+      });
+
+      /* -- Smooth in-page jump for the category index: opens the target -- */
+      document.querySelectorAll('.price-index a').forEach(function (link) {
+        link.addEventListener('click', function (e) {
+          var id = link.getAttribute('href').slice(1);
+          var target = document.getElementById(id);
+          if (!target) return;
+          e.preventDefault();
+          setCategoryOpen(target, true);
+          requestAnimationFrame(function () {
+            var top = target.getBoundingClientRect().top + window.scrollY - 96;
+            window.scrollTo({ top: Math.max(0, top), left: 0, behavior: 'smooth' });
+          });
+          if (history.pushState) { history.pushState(null, '', '#' + id); }
+        });
+      });
+
+      /* -- Deep link on page load: open a category and highlight a specific
+         row when arriving from the homepage's "Details" links, e.g.
+         services.html?svc=Female%20Cut%20%26%20Dry#cuts. Falls back to just
+         opening the category if no row matches (some categories, like
+         Hannah's nail services, have nothing to match against). --------- */
+      function highlightServiceFromURL() {
+        var slug = (location.hash || '').slice(1);
+        var svcParam = new URLSearchParams(location.search).get('svc');
+        var catEl = slug ? document.getElementById(slug) : null;
+        if (!catEl) return;
+
+        setCategoryOpen(catEl, true);
+
+        var targetRow = null;
+        if (svcParam) {
+          var wanted = svcParam.trim().toLowerCase();
+          var rows = catEl.querySelectorAll('.price-row');
+          for (var i = 0; i < rows.length; i++) {
+            if (rows[i].dataset.name === wanted) { targetRow = rows[i]; break; }
+          }
+          if (!targetRow) {
+            for (var j = 0; j < rows.length; j++) {
+              if (rows[j].dataset.name.indexOf(wanted) !== -1 || wanted.indexOf(rows[j].dataset.name) !== -1) {
+                targetRow = rows[j];
+                break;
+              }
+            }
+          }
+        }
+
+        // Wait for the accordion's own expand transition (0.4s) so the
+        // scroll position is measured against the final, opened layout.
+        setTimeout(function () {
+          var scrollEl = targetRow || catEl;
+          var top = scrollEl.getBoundingClientRect().top + window.scrollY - 96;
+          window.scrollTo({ top: Math.max(0, top), left: 0, behavior: 'smooth' });
+          if (targetRow) {
+            targetRow.classList.add('is-highlighted');
+            setTimeout(function () { targetRow.classList.remove('is-highlighted'); }, 2600);
+          }
+        }, 450);
+      }
+      if (location.hash) { highlightServiceFromURL(); }
+
+      /* -- Header scroll state ------------------------------------------- */
+      var navbar = document.getElementById('navbar');
+      function onScroll() {
+        if (window.scrollY > 40) { navbar.classList.add('scrolled'); } else { navbar.classList.remove('scrolled'); }
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+
+      /* -- Scroll to Top Floating Button -------------------------------- */
+      var scrollToTopBtn = document.getElementById('scrollToTopBtn');
+      if (scrollToTopBtn) {
+        function updateScrollToTop() {
+          if (window.scrollY > 300) { scrollToTopBtn.classList.add('is-visible'); } else { scrollToTopBtn.classList.remove('is-visible'); }
+        }
+        window.addEventListener('scroll', updateScrollToTop, { passive: true });
+        updateScrollToTop();
+        scrollToTopBtn.addEventListener('click', function (e) {
+          e.preventDefault();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }
+
+      /* -- Mobile navigation ------------------------------------------- */
+      var menuToggle = document.getElementById('menuToggle');
+      var mobileMenu = document.getElementById('mobileMenu');
+      function closeMobileMenu() {
+        menuToggle.classList.remove('active');
+        mobileMenu.classList.remove('open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      }
+      function toggleMobileMenu() {
+        var isOpen = mobileMenu.classList.toggle('open');
+        menuToggle.classList.toggle('active', isOpen);
+        menuToggle.setAttribute('aria-expanded', String(isOpen));
+        document.body.style.overflow = isOpen ? 'hidden' : '';
+      }
+      menuToggle.addEventListener('click', toggleMobileMenu);
+      mobileMenu.querySelectorAll('.mobile-link').forEach(function (link) {
+        link.addEventListener('click', closeMobileMenu);
+      });
+
+      /* -- Scroll reveal -------------------------------------------------- */
+      var revealTargets = document.querySelectorAll('.reveal-on-scroll');
+      if ('IntersectionObserver' in window) {
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-revealed');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+        revealTargets.forEach(function (el) { observer.observe(el); });
+      } else {
+        revealTargets.forEach(function (el) { el.classList.add('is-revealed'); });
+      }
+
+      document.getElementById('currentYear').textContent = new Date().getFullYear();
+    })();
+  </script>
+</body>
+</html>
