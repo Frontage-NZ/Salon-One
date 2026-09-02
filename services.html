@@ -148,22 +148,38 @@
     .header { position: fixed; top: 0; left: 0; width: 100%; z-index: 100; padding-block: 1.5rem; background: transparent; transition: all 0.4s var(--ease-editorial); }
     .header.scrolled { padding-block: 1.1rem; background: rgba(255,255,255,0.85); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid var(--border-glass-subtle); }
     .nav-container { display: flex; align-items: center; justify-content: space-between; }
-    .logo { font-family: var(--font-serif); font-size: clamp(1.3rem, 2.4vw, 1.6rem); letter-spacing: 0.12em; font-weight: 400; text-transform: uppercase; display: flex; align-items: center; gap: 0.5rem; white-space: nowrap; color: var(--text-white); }
-    .logo span { display: inline-block; width: 6px; height: 6px; background-color: var(--accent-gold); border-radius: 50%; }
+    .logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+    .logo img, .footer-brand .logo img {
+      height: 38px;
+      width: auto;
+      object-fit: contain;
+      display: block;
+    }
+    .footer-brand .logo img {
+      height: 44px;
+    }
     .nav-links { display: flex; align-items: center; gap: 2.5rem; list-style: none; }
     .nav-link { font-size: 0.875rem; font-weight: 400; letter-spacing: 0.05em; position: relative; padding-block: 0.25rem; color: rgba(10,10,11,0.82); text-shadow: none; }
     .nav-link.active { color: var(--accent-gold); }
     .nav-link::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1px; background-color: var(--accent-gold); transition: width 0.3s var(--ease-editorial); }
     .nav-link:hover::after, .nav-link.active::after { width: 100%; }
     .nav-actions { display: flex; align-items: center; gap: 1.5rem; }
-    .menu-toggle { display: none; flex-direction: column; justify-content: center; gap: 6px; width: 32px; height: 32px; z-index: 101; }
+    .menu-toggle { display: none; flex-direction: column; justify-content: center; gap: 6px; width: 32px; height: 32px; z-index: 101; cursor: pointer; }
     .menu-toggle span { width: 100%; height: 1.5px; background-color: var(--text-white); transition: all 0.3s ease; transform-origin: center; }
     .menu-toggle.active span:first-child { transform: translateY(4px) rotate(45deg); }
     .menu-toggle.active span:last-child { transform: translateY(-3.5px) rotate(-45deg); }
     .mobile-menu { position: fixed; inset: 0; background-color: rgba(255,255,255,0.97); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 1.75rem; z-index: 99; opacity: 0; pointer-events: none; transition: opacity 0.4s var(--ease-editorial); }
     .mobile-menu.open { opacity: 1; pointer-events: auto; }
     .mobile-menu .nav-link { font-size: 1.6rem; font-family: var(--font-serif); color: var(--text-white); text-shadow: none; }
-    @media (max-width: 900px) { .nav-links { display: none; } .menu-toggle { display: flex; } }
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .nav-actions .btn { display: none !important; }
+      .menu-toggle { display: flex; }
+    }
 
     /* ==========================================================================
        SERVICES HERO
@@ -171,28 +187,85 @@
     .price-hero {
       position: relative;
       overflow: hidden;
-      min-height: clamp(560px, 58vw, 720px);
+      min-height: clamp(560px, 56.28vw, 940px);
       display: flex;
-      align-items: flex-end;
+      align-items: center;
+      justify-content: center;
       text-align: center;
+      background-color: var(--accent-warm-sand);
     }
-    .price-hero-bg { position: absolute; inset: 0; z-index: 0; }
-    .price-hero-bg img { width: 100%; height: 100%; object-fit: cover; object-position: center 22%; }
+    .price-hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 65%, rgba(0,0,0,0.85) 78%, rgba(0,0,0,0.3) 90%, transparent 100%);
+      mask-image: linear-gradient(to bottom, #000 0%, #000 65%, rgba(0,0,0,0.85) 78%, rgba(0,0,0,0.3) 90%, transparent 100%);
+    }
+    .price-hero-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
     .price-hero-scrim {
-      position: absolute; inset: 0; z-index: 1;
-      background: linear-gradient(to bottom, rgba(20,17,13,0.12) 0%, rgba(20,17,13,0.38) 45%, rgba(20,17,13,0.82) 100%);
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.40) 0%,
+        rgba(255, 255, 255, 0.18) 30%,
+        rgba(255, 255, 255, 0.08) 58%,
+        rgba(245, 240, 234, 0.45) 78%,
+        rgba(245, 240, 234, 0.88) 92%,
+        var(--accent-warm-sand) 100%
+      );
     }
-    .price-hero > .container { position: relative; z-index: 2; padding-top: clamp(7rem, 12vw, 9rem); padding-bottom: clamp(2.75rem, 5vw, 3.75rem); }
+    .price-hero > .container {
+      position: relative;
+      z-index: 2;
+      padding-top: clamp(7.5rem, 12vw, 9.5rem);
+      padding-bottom: clamp(3.5rem, 6vw, 5rem);
+    }
     .price-hero-eyebrow {
-      display: inline-block; font-family: var(--font-sans); font-size: 0.78rem; font-weight: 600;
-      letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent-gold-hover); margin-bottom: 1.25rem;
+      display: inline-block;
+      font-family: var(--font-sans);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #9E7B1A;
+      margin-bottom: 1.15rem;
+      text-shadow: 0 1px 3px rgba(255, 255, 255, 0.9);
     }
-    .price-hero h1 { color: #FFFFFF; }
-    .price-hero p { max-width: 58ch; margin: 1.25rem auto 0; color: rgba(255,255,255,0.86); }
-    .price-hero p a { color: var(--accent-gold-hover); }
+    .price-hero h1 {
+      color: #161412;
+      font-weight: 400;
+      text-shadow: 0 1px 3px rgba(255, 255, 255, 0.95), 0 3px 18px rgba(255, 255, 255, 0.85);
+    }
+    .price-hero p {
+      max-width: 58ch;
+      margin: 1.25rem auto 0;
+      color: #2D2925;
+      font-size: 1.05rem;
+      line-height: 1.6;
+      text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9);
+    }
+    .price-hero p a {
+      color: #9E7B1A;
+      font-weight: 600;
+    }
     .price-hero-note {
-      margin-top: 1.5rem; display: block;
-      font-family: var(--font-sans); font-size: 0.82rem; font-weight: 400; font-style: italic; color: rgba(255,255,255,0.66);
+      margin-top: 1.5rem;
+      display: block;
+      font-family: var(--font-sans);
+      font-size: 0.84rem;
+      font-weight: 500;
+      font-style: italic;
+      color: #5C554D;
+      text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9);
     }
 
     /* ==========================================================================
@@ -202,6 +275,7 @@
       padding-top: clamp(1.75rem, 3vw, 2.5rem);
       padding-bottom: clamp(1.5rem, 2.5vw, 2rem);
       display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.25rem;
+      border-bottom: 1px solid var(--border-glass-subtle);
     }
     .price-search { position: relative; width: 100%; max-width: 340px; }
     .price-search-bar {
@@ -217,24 +291,9 @@
     .price-result-count { font-family: var(--font-sans); font-size: 0.82rem; color: var(--text-muted); white-space: nowrap; }
 
     /* ==========================================================================
-       CATEGORY INDEX
-       ========================================================================== */
-    .price-index {
-      display: flex; flex-wrap: wrap; gap: 0.65rem 1rem;
-      padding-bottom: clamp(2.5rem, 5vw, 3.5rem); border-bottom: 1px solid var(--border-glass-subtle);
-    }
-    .price-index a {
-      font-size: 0.82rem; letter-spacing: 0.02em; color: var(--text-muted);
-      padding: 0.4rem 0; border-bottom: 1px solid transparent;
-    }
-    .price-index a:hover { color: var(--text-white); border-bottom-color: var(--border-glass); }
-    .price-index a::after { content: '·'; margin-left: 1rem; color: var(--border-glass); }
-    .price-index a:last-child::after { content: ''; }
-
-    /* ==========================================================================
        SERVICE CATEGORIES
        ========================================================================== */
-    .price-categories { padding-top: clamp(2.5rem, 5vw, 3.5rem); display: flex; flex-direction: column; gap: 1.1rem; }
+    .price-categories { padding-top: clamp(1.75rem, 3.5vw, 2.5rem); display: flex; flex-direction: column; gap: 1.1rem; }
 
     .price-category {
       scroll-margin-top: 6.5rem;
@@ -244,16 +303,62 @@
     }
 
     .price-category-toggle {
-      width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;
-      padding: clamp(1.35rem, 2.6vw, 1.75rem) clamp(1.5rem, 3vw, 2.25rem); text-align: left; background: none; border: none; cursor: pointer;
+      width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+      padding: clamp(1.25rem, 2.6vw, 1.75rem) clamp(1.25rem, 3vw, 2.25rem); text-align: left; background: none; border: none; cursor: pointer;
     }
-    .price-category-toggle-left { display: flex; align-items: baseline; gap: 1rem; flex-wrap: wrap; }
-    .price-category-toggle h2 { font-family: var(--font-serif); font-size: clamp(1.4rem, 2.2vw, 1.85rem); font-weight: 400; color: var(--text-white); }
-    .price-category-count { font-family: var(--font-sans); font-size: 0.8rem; color: var(--text-muted); white-space: nowrap; }
+    .price-category-toggle-left {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.35rem;
+      flex: 1;
+      min-width: 0;
+    }
+    .price-category-toggle-right {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-shrink: 0;
+    }
+    .price-category-toggle h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.25rem, 2.2vw, 1.85rem);
+      font-weight: 400;
+      color: var(--text-white);
+      line-height: 1.25;
+      margin: 0;
+    }
+    .price-category-count {
+      display: inline-flex;
+      align-items: center;
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      color: var(--text-muted);
+      white-space: nowrap;
+      background: rgba(20, 19, 20, 0.05);
+      border: 1px solid var(--border-glass-subtle);
+      padding: 0.2rem 0.6rem;
+      border-radius: var(--radius-full);
+    }
     .price-category-chevron { flex-shrink: 0; color: var(--text-muted); transition: transform 0.3s var(--ease-editorial), color 0.25s ease; }
     .price-category-toggle:hover .price-category-chevron { color: var(--accent-gold-primary); }
     .price-category-toggle:hover h2 { color: var(--accent-gold-primary); }
     .price-category.is-open .price-category-chevron { transform: rotate(180deg); color: var(--accent-gold-primary); }
+    .price-category.is-open .price-category-count {
+      background: var(--accent-gold-subtle);
+      border-color: var(--border-gold);
+      color: var(--accent-gold-primary);
+    }
+
+    @media (min-width: 640px) {
+      .price-category-toggle-left {
+        flex-direction: row;
+        align-items: baseline;
+        gap: 1rem;
+      }
+    }
 
     .price-category-body-wrap { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.4s var(--ease-editorial); }
     .price-category.is-open .price-category-body-wrap { grid-template-rows: 1fr; }
@@ -394,12 +499,14 @@
        ========================================================================== -->
   <header class="header" id="navbar">
     <div class="container nav-container">
-      <a href="index.html" class="logo">SALON ONE<span></span></a>
+      <a href="index.html" class="logo" aria-label="Salon One Home">
+        <img src="https://res.cloudinary.com/cskamhz5/image/upload/v1788337741/ChatGPT_Image_Sep_2_2026_06_44_16_PM.png" alt="Salon One Tauranga Logo" />
+      </a>
       <ul class="nav-links">
         <li><a href="index.html#gallery" class="nav-link">Gallery</a></li>
         <li><a href="index.html#product" class="nav-link">Product</a></li>
         <li><a href="shop.html" class="nav-link">Shop</a></li>
-        <li><a href="index.html#services" class="nav-link active">Services</a></li>
+        <li><a href="services.html" class="nav-link active">Services</a></li>
         <li><a href="index.html#philosophy" class="nav-link">About</a></li>
       </ul>
 
@@ -418,9 +525,9 @@
     <a href="index.html#gallery" class="nav-link mobile-link">Gallery</a>
     <a href="index.html#product" class="nav-link mobile-link">Product</a>
     <a href="shop.html" class="nav-link mobile-link">Shop</a>
-    <a href="index.html#services" class="nav-link mobile-link active">Services</a>
+    <a href="services.html" class="nav-link mobile-link active">Services</a>
     <a href="index.html#philosophy" class="nav-link mobile-link">About</a>
-    <a href="index.html#booking" class="btn btn-primary mobile-link" style="margin-top: 1rem;">Book Appointment</a>
+    <a href="index.html#booking" class="btn btn-primary mobile-link" style="margin-top: 1rem; width: 100%; max-width: 280px; text-align: center;">Book Appointment</a>
   </div>
 
   <main>
@@ -429,7 +536,7 @@
          ========================================================================== -->
     <section class="price-hero">
       <div class="price-hero-bg" aria-hidden="true">
-        <img src="https://res.cloudinary.com/cskamhz5/image/upload/v1787919850/vecteezy_beautiful-woman-model-with-shiny-and-long-wavy-hair-beauty_34087120.jpg" alt="" loading="eager" />
+        <img src="https://res.cloudinary.com/cskamhz5/image/upload/v1788340642/ChatGPT_Image_Sep_2_2026_09_16_22_PM.png" alt="" loading="eager" />
       </div>
       <div class="price-hero-scrim" aria-hidden="true"></div>
       <div class="container">
@@ -458,11 +565,6 @@
         </div>
         <span class="price-result-count" id="priceResultCount"></span>
       </div>
-
-      <!-- ==========================================================================
-           CATEGORY INDEX
-           ========================================================================== -->
-      <nav class="price-index reveal-on-scroll" id="priceIndex" aria-label="Jump to category"></nav>
 
       <!-- ==========================================================================
            SERVICE CATEGORIES (rendered from data below)
@@ -497,8 +599,8 @@
       <div class="footer-grid">
 
         <div class="footer-brand">
-          <a href="index.html" class="logo">
-            SALON ONE<span></span>
+          <a href="index.html" class="logo" aria-label="Salon One Home">
+            <img src="https://res.cloudinary.com/cskamhz5/image/upload/v1788337741/ChatGPT_Image_Sep_2_2026_06_44_16_PM.png" alt="Salon One Tauranga Logo" />
           </a>
           <p>
             Salon One is Fraser Cove, Tauranga's destination for hairdressing, beauty therapy, and bridal styling — family-owned, using eco-friendly products in a warm, welcoming space.
@@ -633,8 +735,10 @@
         var bodyId = 'cat-body-' + cat.slug;
         return '<article class="price-category" id="' + cat.slug + '" data-cat="' + cat.slug + '" data-cat-name="' + esc(cat.name) + '">' +
           '<button type="button" class="price-category-toggle" aria-expanded="false" aria-controls="' + bodyId + '">' +
-            '<span class="price-category-toggle-left"><h2>' + cat.name + '</h2><span class="price-category-count">' + categoryCount(cat) + ' services</span></span>' +
-            '<svg class="price-category-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>' +
+            '<div class="price-category-toggle-left"><h2>' + cat.name + '</h2><span class="price-category-count">' + categoryCount(cat) + ' services</span></div>' +
+            '<div class="price-category-toggle-right">' +
+              '<svg class="price-category-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>' +
+            '</div>' +
           '</button>' +
           '<div class="price-category-body-wrap"><div class="price-category-body" id="' + bodyId + '"><div class="price-category-body-inner">' +
             mediaBlock +
@@ -645,14 +749,10 @@
       }
 
       var categoriesEl = document.getElementById('priceCategories');
-      var indexEl = document.getElementById('priceIndex');
       var countEl = document.getElementById('priceResultCount');
       var searchEl = document.getElementById('priceSearchInput');
 
       categoriesEl.innerHTML = CATEGORIES.map(renderCategory).join('');
-      indexEl.innerHTML = CATEGORIES.map(function (cat) {
-        return '<a href="#' + cat.slug + '">' + cat.name + '</a>';
-      }).join('');
 
       var totalCount = CATEGORIES.reduce(function (sum, c) { return sum + categoryCount(c); }, 0);
       countEl.textContent = totalCount + ' services';
@@ -734,22 +834,6 @@
           setCategoryOpen(cat, q ? anyVisible : false);
         });
         countEl.textContent = q ? visible + ' matching' : totalCount + ' services';
-      });
-
-      /* -- Smooth in-page jump for the category index: opens the target -- */
-      document.querySelectorAll('.price-index a').forEach(function (link) {
-        link.addEventListener('click', function (e) {
-          var id = link.getAttribute('href').slice(1);
-          var target = document.getElementById(id);
-          if (!target) return;
-          e.preventDefault();
-          setCategoryOpen(target, true);
-          requestAnimationFrame(function () {
-            var top = target.getBoundingClientRect().top + window.scrollY - 96;
-            window.scrollTo({ top: Math.max(0, top), left: 0, behavior: 'smooth' });
-          });
-          if (history.pushState) { history.pushState(null, '', '#' + id); }
-        });
       });
 
       /* -- Deep link on page load: open a category and highlight a specific

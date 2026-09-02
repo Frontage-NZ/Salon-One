@@ -262,24 +262,28 @@
     }
 
     .logo {
-      font-family: var(--font-serif);
-      font-size: clamp(1.3rem, 2.4vw, 1.6rem);
-      letter-spacing: 0.12em;
-      font-weight: 400;
-      text-transform: uppercase;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-      white-space: nowrap;
-      color: var(--text-white);
+      text-decoration: none;
     }
 
-    .logo span {
+    .logo img, .footer-brand .logo img {
+      height: 38px;
+      width: auto;
+      object-fit: contain;
+      display: block;
+    }
+
+    .footer-brand .logo img {
+      height: 44px;
+    }
+
+    .shop-hero-logo {
+      height: 36px;
+      width: auto;
+      object-fit: contain;
       display: inline-block;
-      width: 6px;
-      height: 6px;
-      background-color: var(--accent-gold);
-      border-radius: 50%;
+      margin-bottom: 1.25rem;
     }
 
     .nav-links {
@@ -382,6 +386,7 @@
 
     @media (max-width: 900px) {
       .nav-links { display: none; }
+      .nav-actions .btn { display: none !important; }
       .menu-toggle { display: flex; }
     }
 
@@ -462,6 +467,7 @@
       left: clamp(4%, 6vw, 9%);
       bottom: -140px;
       width: clamp(320px, 32vw, 500px);
+      z-index: 2;
     }
 
     .shop-hero-product-wella .shop-hero-product-reflection {
@@ -478,10 +484,27 @@
     }
 
     @media (max-width: 900px) {
-      .shop-hero { min-height: clamp(680px, 130vw, 820px); }
-      .shop-hero-product.shop-hero-product-wella { width: 110px; }
-      .shop-hero-product.shop-hero-product-wella .shop-hero-product-reflection { height: 50px; }
-      .shop-hero-product.shop-hero-product-collection { width: 190px; }
+      .shop-hero {
+        padding-top: clamp(4.75rem, 8.5vw, 5.75rem);
+        padding-bottom: clamp(1.5rem, 4vw, 2.5rem);
+        min-height: clamp(440px, 85vw, 560px);
+        align-items: flex-start;
+      }
+      .shop-hero-product.shop-hero-product-wella {
+        z-index: 3;
+        width: clamp(170px, 45vw, 280px);
+        left: 0;
+        bottom: -35px;
+      }
+      .shop-hero-product.shop-hero-product-wella .shop-hero-product-reflection {
+        height: clamp(55px, 14vw, 85px);
+      }
+      .shop-hero-product.shop-hero-product-collection {
+        z-index: 1;
+        width: clamp(280px, 75vw, 480px);
+        right: 0;
+        bottom: 0;
+      }
     }
 
     /* ==========================================================================
@@ -516,6 +539,20 @@
 
     .brand-index a:hover img {
       opacity: 1;
+    }
+
+    @media (max-width: 768px) {
+      .brand-index {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.25rem 1rem;
+        justify-items: center;
+        align-items: center;
+      }
+      .brand-index a {
+        width: 100%;
+        justify-content: center;
+      }
     }
 
     /* ==========================================================================
@@ -1286,12 +1323,14 @@
        ========================================================================== -->
   <header class="header" id="navbar">
     <div class="container nav-container">
-      <a href="index.html" class="logo">SALON ONE<span></span></a>
+      <a href="index.html" class="logo" aria-label="Salon One Home">
+        <img src="https://res.cloudinary.com/cskamhz5/image/upload/v1788337741/ChatGPT_Image_Sep_2_2026_06_44_16_PM.png" alt="Salon One Tauranga Logo" />
+      </a>
       <ul class="nav-links">
         <li><a href="index.html#gallery" class="nav-link">Gallery</a></li>
         <li><a href="index.html#product" class="nav-link">Product</a></li>
         <li><a href="shop.html" class="nav-link active">Shop</a></li>
-        <li><a href="index.html#services" class="nav-link">Services</a></li>
+        <li><a href="services.html" class="nav-link">Services</a></li>
         <li><a href="index.html#philosophy" class="nav-link">About</a></li>
       </ul>
 
@@ -1310,9 +1349,9 @@
     <a href="index.html#gallery" class="nav-link mobile-link">Gallery</a>
     <a href="index.html#product" class="nav-link mobile-link">Product</a>
     <a href="shop.html" class="nav-link mobile-link active">Shop</a>
-    <a href="index.html#services" class="nav-link mobile-link">Services</a>
+    <a href="services.html" class="nav-link mobile-link">Services</a>
     <a href="index.html#philosophy" class="nav-link mobile-link">About</a>
-    <a href="index.html#booking" class="btn btn-primary mobile-link" style="margin-top: 1rem;">Book Appointment</a>
+    <a href="index.html#booking" class="btn btn-primary mobile-link" style="margin-top: 1rem; width: 100%; max-width: 280px; text-align: center;">Book Appointment</a>
   </div>
 
   <main>
@@ -1437,8 +1476,8 @@
       <div class="footer-grid">
 
         <div class="footer-brand">
-          <a href="index.html" class="logo">
-            SALON ONE<span></span>
+          <a href="index.html" class="logo" aria-label="Salon One Home">
+            <img src="https://res.cloudinary.com/cskamhz5/image/upload/v1788337741/ChatGPT_Image_Sep_2_2026_06_44_16_PM.png" alt="Salon One Tauranga Logo" />
           </a>
           <p>
             Salon One is Fraser Cove, Tauranga's destination for hairdressing, beauty therapy, and bridal styling — family-owned, using eco-friendly products in a warm, welcoming space.

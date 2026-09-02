@@ -450,23 +450,20 @@
     }
 
     .logo {
-      font-family: var(--font-serif);
-      font-size: clamp(1.3rem, 2.4vw, 1.6rem);
-      letter-spacing: 0.12em;
-      font-weight: 400;
-      text-transform: uppercase;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-      white-space: nowrap;
+      text-decoration: none;
     }
 
-    .logo span {
-      display: inline-block;
-      width: 6px;
-      height: 6px;
-      background-color: var(--accent-gold);
-      border-radius: 50%;
+    .logo img, .footer-brand .logo img {
+      height: 38px;
+      width: auto;
+      object-fit: contain;
+      display: block;
+    }
+
+    .footer-brand .logo img {
+      height: 44px;
     }
 
     .nav-links {
@@ -2034,6 +2031,12 @@
       margin-top: 2.25rem;
     }
 
+    .shop-cta-wrapper {
+      margin-top: 2rem;
+      display: flex;
+      justify-content: flex-start;
+    }
+
     .brand-badge {
       display: flex;
       align-items: center;
@@ -2449,6 +2452,45 @@
         height: 190px;
       }
 
+      /* Shop section mobile overrides: 2 logos per row & centered Shop Now button */
+      .brand-badges-row {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem 1rem;
+        align-items: center;
+        justify-items: center;
+        width: 100%;
+        margin-top: 2rem;
+      }
+
+      .brand-badge {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .brand-badge img {
+        max-width: 130px;
+        height: 48px;
+      }
+
+      .brand-badge.brand-badge-aspect img {
+        height: 60px;
+        max-width: 140px;
+      }
+
+      .shop-cta-wrapper {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        margin-top: 2.25rem;
+      }
+
+      .shop-cta-btn {
+        margin-inline: auto;
+      }
+
       .footer-grid {
         grid-template-columns: 1fr;
         gap: 2.5rem;
@@ -2540,11 +2582,14 @@
        ========================================================================== -->
   <header class="header" id="navbar">
     <div class="container nav-container">
+      <a href="index.html" class="logo" aria-label="Salon One Home">
+        <img src="https://res.cloudinary.com/cskamhz5/image/upload/v1788337741/ChatGPT_Image_Sep_2_2026_06_44_16_PM.png" alt="Salon One Tauranga Logo" />
+      </a>
       <ul class="nav-links">
         <li><a href="#gallery" class="nav-link">Gallery</a></li>
         <li><a href="#product" class="nav-link">Product</a></li>
-        <li><a href="#shop" class="nav-link">Shop</a></li>
-        <li><a href="#services" class="nav-link">Services</a></li>
+        <li><a href="shop.html" class="nav-link">Shop</a></li>
+        <li><a href="services.html" class="nav-link">Services</a></li>
         <li><a href="#philosophy" class="nav-link">About</a></li>
       </ul>
 
@@ -2745,10 +2790,12 @@
                 <img src="https://res.cloudinary.com/cskamhz5/image/upload/w_500/e_blackwhite:80/e_make_transparent:15/f_png/v1787974671/ChatGPT_Image_Aug_29_2026_02_11_03_PM_3.jpg" alt="Eimi" loading="lazy" />
               </div>
             </div>
-            <a href="shop.html" class="btn btn-primary" style="margin-top: 2rem;">
-              Shop Now
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-            </a>
+            <div class="shop-cta-wrapper">
+              <a href="shop.html" class="btn btn-primary shop-cta-btn">
+                Shop Now
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+              </a>
+            </div>
           </div>
           <div class="voucher-card">
             <div class="floating-icon" style="width: 52px; height: 52px;">
@@ -2918,7 +2965,7 @@
             <!-- Bottom Editorial Actions -->
             <div class="editorial-footer-bar">
               <div class="editorial-actions-group">
-                <a href="services.html#cuts" class="btn-editorial-secondary" id="hudPriceListBtn">
+                <a href="services.html" class="btn-editorial-secondary" id="hudPriceListBtn">
                   VIEW ALL SERVICES
                 </a>
               </div>
@@ -3198,8 +3245,8 @@
       <div class="footer-grid">
 
         <div class="footer-brand">
-          <a href="#" class="logo" style="color: #FFFFFF;">
-            SALON ONE<span></span>
+          <a href="index.html" class="logo" aria-label="Salon One Home">
+            <img src="https://res.cloudinary.com/cskamhz5/image/upload/v1788337741/ChatGPT_Image_Sep_2_2026_06_44_16_PM.png" alt="Salon One Tauranga Logo" />
           </a>
           <p>
             Salon One is Fraser Cove, Tauranga's destination for hairdressing, beauty therapy, and bridal styling — family-owned, using eco-friendly products in a warm, welcoming space.
@@ -4633,7 +4680,7 @@
           if (elMetricDuration) elMetricDuration.textContent = data.duration;
           if (elMetricPrice) elMetricPrice.textContent = data.priceFrom;
           if (elMetricAvailability) elMetricAvailability.textContent = data.availability;
-          if (elPriceListBtn) elPriceListBtn.href = 'services.html#' + data.slug;
+          if (elPriceListBtn) elPriceListBtn.href = 'services.html';
 
           // Update image with soft crossfade. On first render the static
           // markup already holds category 0's image (so the page shows a

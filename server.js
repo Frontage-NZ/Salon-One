@@ -20,9 +20,13 @@ app.use((req, res, next) => {
 // Serve static files from root directory
 app.use(express.static(__dirname, { etag: false, lastModified: false }));
 
-// Route /shop directly to shop.html
+// Route /shop and /services directly to their respective HTML files
 app.get('/shop', (req, res) => {
   res.sendFile(path.join(__dirname, 'shop.html'));
+});
+
+app.get('/services', (req, res) => {
+  res.sendFile(path.join(__dirname, 'services.html'));
 });
 
 // Fallback to index.html for all other routes
