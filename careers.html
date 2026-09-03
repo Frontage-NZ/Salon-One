@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Careers | Salon One</title>
+  <meta name="description" content="Join the Salon One team in Fraser Cove, Tauranga — current openings for stylists and beauty therapists." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-noir: #0A0A0B;
+      --text-white: #FFFFFF;
+      --text-sand: #EBE6DD;
+      --text-muted: #B8B2A7;
+      --accent-gold: #E5C158;
+      --border-glass: rgba(255, 255, 255, 0.10);
+      --border-glass-subtle: rgba(255, 255, 255, 0.06);
+      --font-serif: 'Playfair Display', Georgia, serif;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: var(--bg-noir);
+      color: var(--text-sand);
+      font-family: var(--font-sans);
+      font-weight: 300;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--accent-gold); text-decoration: none; }
+    a:hover { color: var(--text-white); }
+
+    .container { max-width: 780px; margin-inline: auto; padding-inline: 1.75rem; }
+
+    /* Persistent full-bleed video background — three clips cross-fade into
+       one another on a timer and loop forever. All three stay loaded and
+       playing at once (muted); only opacity is toggled, so the swap is a
+       true dissolve rather than a cut-then-play. */
+    .careers-video-bg {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -2;
+      overflow: hidden;
+      background-color: var(--bg-noir);
+      pointer-events: none;
+    }
+    .careers-video-bg video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 1.8s ease;
+    }
+    .careers-video-bg video.active {
+      opacity: 1;
+    }
+    .careers-video-overlay {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse at 50% 30%, rgba(10, 10, 11, 0.55) 0%, rgba(10, 10, 11, 0.78) 65%, rgba(10, 10, 11, 0.9) 100%),
+        linear-gradient(to bottom, rgba(10, 10, 11, 0.55) 0%, rgba(10, 10, 11, 0.35) 30%, rgba(10, 10, 11, 0.75) 100%);
+    }
+
+    header.legal-header {
+      padding: 2.5rem 0 2rem;
+      border-bottom: 1px solid var(--border-glass-subtle);
+    }
+    .legal-header .container { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap; }
+    .legal-logo { font-family: var(--font-serif); font-size: 1.4rem; color: var(--text-white); }
+    .legal-back { font-size: 0.85rem; color: var(--text-muted); }
+    .legal-back:hover { color: var(--accent-gold); }
+
+    main { padding: 3.5rem 0 5rem; }
+    .legal-title { font-family: var(--font-serif); font-size: clamp(2.2rem, 5vw, 2.9rem); color: var(--text-white); margin-bottom: 0.75rem; }
+    .legal-intro { color: var(--text-sand); font-size: 1.05rem; margin-bottom: 3rem; max-width: 62ch; }
+
+    section.legal-section { margin-bottom: 2.75rem; }
+    section.legal-section h2 {
+      font-family: var(--font-serif); font-weight: 600; font-size: 1.3rem; color: var(--text-white);
+      margin-bottom: 1rem;
+    }
+    section.legal-section p { max-width: 68ch; font-size: 0.95rem; color: var(--text-sand); margin-bottom: 0.75rem; }
+    section.legal-section p:last-child { margin-bottom: 0; }
+    section.legal-section a { text-decoration: underline; text-underline-offset: 2px; }
+
+    .perks-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.9rem 2rem;
+    }
+    .perks-list li {
+      font-size: 0.95rem;
+      color: var(--text-sand);
+      padding-left: 1.2rem;
+      position: relative;
+    }
+    .perks-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.6em;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-gold);
+    }
+
+    .openings-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      border-top: 1px solid var(--border-glass-subtle);
+    }
+    .opening-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.1rem 0;
+      border-bottom: 1px solid var(--border-glass-subtle);
+    }
+    .opening-title { font-family: var(--font-serif); font-size: 1.05rem; color: var(--text-white); }
+    .opening-type {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      border: 1px solid var(--border-glass);
+      border-radius: 9999px;
+      padding: 0.3rem 0.8rem;
+      white-space: nowrap;
+    }
+
+    .apply-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-glass);
+      border-radius: 12px;
+      padding: 1.75rem;
+    }
+    .apply-cta {
+      display: inline-block;
+      margin-top: 1rem;
+      background: var(--text-white);
+      color: #141314;
+      font-weight: 600;
+      font-size: 0.85rem;
+      padding: 0.85rem 1.75rem;
+      border-radius: 9999px;
+      transition: background 0.25s ease;
+    }
+    .apply-cta:hover { background: var(--accent-gold); color: #141314; }
+
+    footer.legal-footer {
+      border-top: 1px solid var(--border-glass-subtle);
+      padding: 2.5rem 0;
+    }
+    .legal-footer .container {
+      display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap;
+      font-size: 0.8rem; color: #8C867E;
+    }
+    .legal-footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; }
+    .legal-footer-links a { color: #8C867E; }
+    .legal-footer-links a:hover { color: var(--accent-gold); }
+
+    @media (max-width: 600px) {
+      .legal-footer .container { flex-direction: column; text-align: center; }
+      .perks-list { grid-template-columns: 1fr; }
+      .opening-row { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="careers-video-bg" aria-hidden="true">
+    <video id="cvA" src="https://res.cloudinary.com/cskamhz5/video/upload/v1787919877/vecteezy_detail-of-a-hairdresser-wearing-black-gloves-washing-a_75974068.mp4" muted playsinline preload="auto"></video>
+    <video id="cvB" src="https://res.cloudinary.com/cskamhz5/video/upload/v1787919900/vecteezy_close-up-washing-a-head-in-a-barbershop-frame-hair_37978167.mp4" muted playsinline preload="auto"></video>
+    <video id="cvC" src="https://res.cloudinary.com/cskamhz5/video/upload/v1787919877/vecteezy_portrait-of-a-stylish-woman-with-long-dark-hair-with_37267749.mp4" muted playsinline preload="auto"></video>
+  </div>
+  <div class="careers-video-overlay" aria-hidden="true"></div>
+
+  <header class="legal-header">
+    <div class="container">
+      <a href="index.html" class="legal-logo">Salon One</a>
+      <a href="index.html" class="legal-back">← Back to Salon One</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <h1 class="legal-title">Your Future in Beauty Starts Here</h1>
+      <p class="legal-intro">
+        We're always looking for talented, passionate people to join our team at Fraser Cove — in a creative, inclusive, and growth-driven environment.
+      </p>
+
+      <section class="legal-section">
+        <h2>Why Work With Us</h2>
+        <ul class="perks-list">
+          <li>Continuous training and skill development</li>
+          <li>Supportive, positive salon culture</li>
+          <li>Access to premium products and equipment</li>
+          <li>Schedule flexibility</li>
+          <li>Strong advancement pathways</li>
+        </ul>
+      </section>
+
+      <section class="legal-section">
+        <h2>Current Openings</h2>
+        <div class="openings-list">
+          <div class="opening-row">
+            <span class="opening-title">Senior Stylist</span>
+            <span class="opening-type">Full Time</span>
+          </div>
+          <div class="opening-row">
+            <span class="opening-title">Senior Stylist</span>
+            <span class="opening-type">Part Time</span>
+          </div>
+          <div class="opening-row">
+            <span class="opening-title">Beauty Therapist</span>
+            <span class="opening-type">Full Time</span>
+          </div>
+          <div class="opening-row">
+            <span class="opening-title">Beauty Therapist</span>
+            <span class="opening-type">Part Time</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="legal-section">
+        <h2>How to Apply</h2>
+        <div class="apply-card">
+          <p>Send us your resume and a brief cover letter, or drop in and introduce yourself in person — we'd love to meet you.</p>
+          <p>229–247 Fraser Street, Fraser Cove, Tauranga 3112 · <a href="tel:+6475712183">07 571 2183</a></p>
+          <a href="mailto:thecove@salonone.co.nz?subject=Careers%20Enquiry" class="apply-cta">Email Your Application →</a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="legal-footer">
+    <div class="container">
+      <span>&copy; <span id="currentYear">2026</span> Salon One. All rights reserved.</span>
+      <div class="legal-footer-links">
+        <a href="terms-of-service.html">Terms of Service</a>
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <span>Made by <a href="https://frontage-nz.com" target="_blank" rel="noopener">Frontage-NZ</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <script>document.getElementById('currentYear').textContent = new Date().getFullYear();</script>
+  <script>
+    (function () {
+      'use strict';
+      // Explicit sequence, not a dumb interval: each clip plays for a fixed
+      // 4s window and then dissolves into the next, looping A -> B -> C ->
+      // back to A forever. Each clip is cut off mid-motion rather than run
+      // to its own natural end, so the fade always starts while the video
+      // is still actively playing — letting a clip play to its last frame
+      // first made it visibly stop before the crossfade began. Only the
+      // on-screen video is ever playing — the other two sit paused at
+      // frame 0 — so a clip can never loop or jump mid-fade behind the
+      // scenes. The loop-back to A is just another crossfade, so it reads
+      // as a fade into the replay rather than a hard restart.
+      var sequence = [
+        { el: document.getElementById('cvA') },
+        { el: document.getElementById('cvB') },
+        { el: document.getElementById('cvC') }
+      ];
+      if (!sequence[0].el) return;
+
+      var PLAY_MS = 4000;
+      var FADE_MS = 1800;
+      // The next clip starts playing (invisibly) this long before it's
+      // actually shown, so it's already flowing at full speed by the time
+      // the crossfade begins — calling .play() at the exact moment of the
+      // swap is what caused the visible stutter/pause.
+      var PREROLL_MS = 900;
+      var current = 0;
+      var advanceTimer = null;
+      var prerollTimer = null;
+
+      function clearScheduled() {
+        if (advanceTimer) { window.clearTimeout(advanceTimer); advanceTimer = null; }
+        if (prerollTimer) { window.clearTimeout(prerollTimer); prerollTimer = null; }
+      }
+
+      function schedule() {
+        prerollTimer = window.setTimeout(preroll, Math.max(0, PLAY_MS - PREROLL_MS));
+        advanceTimer = window.setTimeout(swap, PLAY_MS);
+      }
+
+      // Starts the next clip playing ahead of time, while it's still fully
+      // transparent, so it has no decode/buffering lag left to work through
+      // once the fade actually starts.
+      function preroll() {
+        var toVideo = sequence[(current + 1) % sequence.length].el;
+        if (toVideo.readyState > 0 && toVideo.currentTime > 0) {
+          toVideo.currentTime = 0;
+        }
+        var playPromise = toVideo.play();
+        if (playPromise && playPromise.catch) playPromise.catch(function () {});
+      }
+
+      function swap() {
+        clearScheduled();
+        var fromIdx = current;
+        var toIdx = (current + 1) % sequence.length;
+
+        // In case the pre-roll timer hasn't fired yet (very short clips),
+        // make sure the incoming video is playing before it's revealed.
+        preroll();
+
+        sequence[toIdx].el.classList.add('active');
+        sequence[fromIdx].el.classList.remove('active');
+
+        // Only rewind/pause the outgoing clip once it's fully invisible,
+        // so cueing it up for its next turn never shows as a jump mid-fade.
+        window.setTimeout(function () {
+          sequence[fromIdx].el.pause();
+          sequence[fromIdx].el.currentTime = 0;
+        }, FADE_MS + 100);
+
+        current = toIdx;
+        schedule();
+      }
+
+      var first = sequence[0].el;
+      var firstPlay = first.play();
+      if (firstPlay && firstPlay.catch) firstPlay.catch(function () {});
+      first.classList.add('active');
+      schedule();
+    })();
+  </script>
+</body>
+</html>

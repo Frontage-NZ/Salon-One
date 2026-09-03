@@ -272,6 +272,10 @@
       width: auto;
       object-fit: contain;
       display: block;
+      filter:
+        drop-shadow(0 0 2px rgba(255, 255, 255, 0.9))
+        drop-shadow(0 0 6px rgba(255, 255, 255, 0.65))
+        drop-shadow(0 0 14px rgba(255, 255, 255, 0.4));
     }
 
     .footer-brand .logo img {
@@ -1200,6 +1204,7 @@
       justify-content: space-between;
       align-items: center;
       padding-top: 2rem;
+      padding-right: 4.5rem;
       border-top: 1px solid var(--border-glass-subtle);
       font-size: 0.8rem;
       color: #8C867E;
@@ -1223,6 +1228,21 @@
       transform: translateY(-2px);
     }
 
+    .footer-legal-links {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-legal-links a, .footer-legal-links span {
+      color: #8C867E;
+    }
+
+    .footer-legal-links a:hover {
+      color: var(--accent-gold);
+    }
+
     @media (max-width: 768px) {
       .footer-grid {
         grid-template-columns: 1fr;
@@ -1232,6 +1252,8 @@
         flex-direction: column;
         gap: 1.5rem;
         text-align: center;
+        padding-right: 0;
+        padding-bottom: 3.5rem;
       }
     }
 
@@ -1513,7 +1535,7 @@
             <li><a href="index.html#team">Meet the Team</a></li>
             <li><a href="services.html">Services</a></li>
             <li><a href="index.html#booking">Book Now</a></li>
-            <li><a href="mailto:thecove@salonone.co.nz?subject=Careers%20Enquiry">Careers</a></li>
+            <li><a href="careers.html">Careers</a></li>
           </ul>
         </div>
 
@@ -1534,6 +1556,11 @@
           <a href="#" class="social-link" aria-label="Salon One on X">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M4 4l16 16M20 4L4 20"/></svg>
           </a>
+        </div>
+        <div class="footer-legal-links">
+          <a href="terms-of-service.html">Terms of Service</a>
+          <a href="privacy-policy.html">Privacy Policy</a>
+          <span>Made by <a href="https://frontage-nz.com" target="_blank" rel="noopener">Frontage-NZ</a></span>
         </div>
       </div>
     </div>
